@@ -1,0 +1,8 @@
+[Desktop Entry]
+# GNOME autostart entry for the bedside touchscreen. Author: Karim <karim@nrv.kr>, NRV, 2026-10-15
+Type=Application
+Name=NRV DVS kiosk
+Exec=/usr/local/bin/nrv-dvs-kiosk-start.sh
+X-GNOME-Autostart-enabled=true
+X-GNOME-Autostart-Delay=3
+NoDisplay=true
