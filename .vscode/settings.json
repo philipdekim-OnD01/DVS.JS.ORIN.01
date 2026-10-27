@@ -1,0 +1,31 @@
+{
+  // clangd reads drivers/dvs/.clangd, which points at
+  // drivers/dvs/build/compile_commands.json (written by `make` in drivers/dvs or
+  // ./build.sh drivers|compdb on the Jetson; open this folder there, e.g. VS Code
+  // Remote-SSH). Formatting (clangd "Format Document") follows
+  // drivers/dvs/.clang-format = Linux kernel coding style.
+  // If the Microsoft C/C++ extension is installed too, let clangd do IntelliSense.
+  "C_Cpp.intelliSenseEngine": "disabled",
+  // Kernel style: hard tabs, 8 columns, 80-column lines.
+  "[c]": {
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+    "editor.insertSpaces": false,
+    "editor.tabSize": 8,
+    "editor.detectIndentation": false,
+    "editor.rulers": [
+      80
+    ]
+  },
+  "files.exclude": {
+    ".cache": true
+  },
+  "search.exclude": {
+    ".cache": true,
+    "build/**/*.o": true,
+    "build/**/*.cmd": true
+  },
+  "cmake.sourceDirectory": [
+    "${workspaceFolder}/sdk",
+    "${workspaceFolder}/app/dvs_streamer"
+  ]
+}
