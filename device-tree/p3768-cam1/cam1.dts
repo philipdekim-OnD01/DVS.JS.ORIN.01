@@ -1,0 +1,175 @@
+/dts-v1/;
+/plugin/;
+/* L4T39.2.1 / P3768+P3767-0005 Super, CAM1 전용 수신 시험. */
+/ {
+	compatible = "nvidia,p3768-0000+p3767-0005-super";
+	fragment@0 {
+		target-path = "/tegra-capture-vi";
+		__overlay__ {
+			num-channels = <1>;
+			status = "okay";
+			ports {
+				#address-cells = <1>; #size-cells = <0>;
+				port@0 { reg = <0>;
+					vi_in: endpoint {
+						port-index = <2>; bus-width = <4>;
+						remote-endpoint = <&csi_out>;
+					};
+				};
+			};
+		};
+	};
+	fragment@1 {
+		target-path = "/bus@0/host1x@13e00000/nvcsi@15a00000";
+		__overlay__ {
+			status = "okay";
+			num-channels = <1>;
+			#address-cells = <1>; #size-cells = <0>;
+			channel@0 { reg = <0>;
+				ports {
+					#address-cells = <1>; #size-cells = <0>;
+					port@0 { reg = <0>;
+						csi_in: endpoint@0 {
+							port-index = <2>; bus-width = <4>;
+							remote-endpoint = <&sensor_out>;
+						};
+					};
+					port@1 { reg = <1>;
+						csi_out: endpoint@1 { remote-endpoint = <&vi_in>; };
+					};
+				};
+			};
+		};
+	};
+	fragment@2 {
+		target = <&cam_i2c>;
+		__overlay__ {
+			status = "okay";
+			#address-cells = <1>; #size-cells = <0>;
+			nrv_dvs@10 {
+				compatible = "nrv,fx20-sensor-board", "samsung,s5krc1s";
+				reg = <0x10>;
+				status = "okay";
+				/* DT P.1=113은 런타임 PP.01/gpiochip0 offset93에 대응. */
+				reset-gpios = <&gpio 113 0>;
+				/* CAM1_MCLK를 clock으로 요청하지 않는다. 별도 Y1 EXTCLK. */
+				mode0 {
+					mclk_khz = "24000";
+					num_lanes = "4";
+					tegra_sinterface = "serial_c";
+					phy_mode = "DPHY";
+					discontinuous_clk = "no";
+					dpcm_enable = "false";
+					cil_settletime = "0";
+					/* 직접 CSI2_C/D 연결의 극성은 실물 수신으로 검증한다. */
+					lane_polarity = "0";
+					mode_type = "bayer"; pixel_phase = "rggb";
+					/* BSP parser용 값. 시험 driver가 실제 pixel_format을 RAW8로
+					 * 교정한다. on-wire 깊이/VI enum은8비트이며 Argus용이 아님. */
+					pixel_t = "bayer_rggb10";
+					csi_pixel_bit_depth = "8";
+					active_w = "8192"; active_h = "128";
+					readout_orientation = "0";
+					line_length = "8192"; inherent_gain = "1";
+					/*
+					 * NVCSI/VI receiver timing only (the sensor lane rate is
+					 * set by the setfile PLL and is not measured).
+					 * sensor_common.c: pixel_clock = pix_clk_hz = 1.25e9;
+					 * lane_rate = pixel_clock * 8 bit / 4 lanes = 2.5 Gbps;
+					 * DPHY mipi_clock = lane_rate / 2 = 1.25 GHz. settle 0 =
+					 * auto, polarity 0. NVCSI CIL values (mipi_clock, settle,
+					 * polarity) equal what the removed nrv_dvs.ko
+					 * receiver-rate parameter (2500) set at runtime.
+					 * NOT equal: VI copies pixel_clock at bind for the
+					 * tegra_camera_platform NVCSI/VI clock and ISO BW
+					 * requests; that was 500e6 in the observed baseline
+					 * reload, now 1.25e9. Not runtime-tested
+					 * (docs/OPEN-ISSUES.md issue 3).
+					 */
+					pix_clk_hz = "1250000000";
+					gain_factor = "1"; min_gain_val = "1";
+					max_gain_val = "1"; step_gain_val = "1";
+					default_gain = "1";
+					framerate_factor = "1000000";
+					min_framerate = "1000000"; max_framerate = "30000000";
+					step_framerate = "1"; default_framerate = "30000000";
+					exposure_factor = "1000000";
+					min_exp_time = "1"; max_exp_time = "1000000";
+					step_exp_time = "1"; default_exp_time = "10000";
+					embedded_metadata_height = "0";
+				};
+				/* Same receiver settings as mode0; VI buffer for the 2880-byte
+				 * line x 61-line frame output (driver formats[] entry 1). */
+				mode1 {
+					mclk_khz = "24000";
+					num_lanes = "4";
+					tegra_sinterface = "serial_c";
+					phy_mode = "DPHY";
+					discontinuous_clk = "no";
+					dpcm_enable = "false";
+					cil_settletime = "0";
+					lane_polarity = "0";
+					mode_type = "bayer"; pixel_phase = "rggb";
+					pixel_t = "bayer_rggb10";
+					csi_pixel_bit_depth = "8";
+					active_w = "2880"; active_h = "61";
+					readout_orientation = "0";
+					line_length = "2880"; inherent_gain = "1";
+					pix_clk_hz = "1250000000";
+					gain_factor = "1"; min_gain_val = "1";
+					max_gain_val = "1"; step_gain_val = "1";
+					default_gain = "1";
+					framerate_factor = "1000000";
+					min_framerate = "1000000"; max_framerate = "30000000";
+					step_framerate = "1"; default_framerate = "30000000";
+					exposure_factor = "1000000";
+					min_exp_time = "1"; max_exp_time = "1000000";
+					step_exp_time = "1"; default_exp_time = "10000";
+					embedded_metadata_height = "0";
+				};
+				ports {
+					#address-cells = <1>; #size-cells = <0>;
+					port@0 { reg = <0>;
+						sensor_out: endpoint {
+							port-index = <2>; bus-width = <4>;
+							remote-endpoint = <&csi_in>;
+						};
+					};
+				};
+			};
+		};
+	};
+	fragment@3 {
+		target = <&gpio_aon>;
+		__overlay__ {
+			/* 현재 단일 CAM1 검사와 동일하게 mux를 HIGH 고정한다. */
+			nrv-cam1-mux-hog {
+				gpio-hog; gpios = <19 0>; output-high;
+				line-name = "nrv-cam1-mux";
+			};
+		};
+	};
+	fragment@4 {
+		target-path = "/";
+		__overlay__ {
+			tegra-camera-platform {
+				compatible = "nvidia, tegra-camera-platform";
+				num_csi_lanes = <4>;
+				max_lane_speed = <2500000>;
+				min_bits_per_pixel = <8>;
+				vi_peak_byte_per_pixel = <1>;
+				vi_bw_margin_pct = <25>;
+				max_pixel_rate = <500000>;
+				isp_peak_byte_per_pixel = <1>;
+				isp_bw_margin_pct = <25>;
+				modules { module0 {
+					badge = "nrv_rear_s5krc1s"; position = "rear"; orientation = "0";
+					drivernode0 {
+						pcl_id = "v4l2_sensor";
+						sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@3180000/nrv_dvs@10";
+					};
+				}; };
+			};
+		};
+	};
+};
