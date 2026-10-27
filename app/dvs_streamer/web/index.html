@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>NRV DVS 실시간 보기</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <header>
+    <h1>NRV · DVS 실시간 보기</h1>
+    <span class="badge" id="status">연결 중</span>
+  </header>
+  <div class="layout">
+    <section>
+      <canvas id="view" width="960" height="720"></canvas>
+      <div class="foot">
+        <span class="on">ON · 흰색</span>　<span class="off">OFF · 검정</span>　배경 · 회색 · 센서 960 × 720 · CID 0 ·
+        화면 1장 = 프리뷰 간격 동안 받은 프레임을 합친 것(같은 화소는 마지막 극성, RAW2는 수신기 표시 시각 기준)<br>
+        화면 프레임의 이벤트 <b id="frameevents">—</b> · 해석한 이벤트 <b id="rate">—</b>/s ·
+        수신량 <b id="bandwidth">—</b> · 해석한 버퍼 <b id="buffers">—</b> · 건너뛴 버퍼 <b id="errors">—</b> ·
+        동작 시간 <b id="elapsed">—</b> · 화면 <b id="displayrate">—</b> (<span id="recvrate">—</span>)<br>
+        <span id="detail">수신 상태를 확인하고 있습니다.</span>
+      </div>
+    </section>
+    <aside>
+      <div class="metric">센서 프레임 속도<b id="sensorfps">—</b><small id="period">—</small><br><small id="merged">—</small></div>
+      <div class="metric">녹화<b id="recstate">—</b><small id="recdetail"></small></div>
+      <div class="rec">
+        <label>저장 폴더 (이 안에 녹화마다 날짜-시각 폴더)<input id="recbase"></label>
+        <label><input type="checkbox" id="recrotate"> 돌려쓰기 (가장 오래된 파일부터 덮어씀)</label>
+        <label>파일 크기 <input id="recsize" type="number" min="1"> GiB · 개수 <input id="recfiles" type="number" min="1"></label>
+        <button id="record">녹화 시작</button><small class="bad" id="recmsg"></small>
+      </div>
+      <div class="tools">
+        <label>프리뷰
+          <select id="preview">
+            <option value="0">센서 프레임 1장</option>
+            <option value="120">120 fps</option>
+            <option value="60">60 fps</option>
+            <option value="30">30 fps</option>
+            <option value="15">15 fps</option>
+          </select>
+        </label>
+        <button id="pause">화면 일시정지</button>
+        <button id="flip">상하 반전</button>
+        <button id="denoise">노이즈 제거 k=1</button>
+      </div>
+      <small>노이즈 제거(화면에만 적용, 저장 원본은 그대로): k=1/2 는 주변 8칸에 이벤트가 k개 이상인 화소만 표시합니다. <span id="removed"></span></small>
+      <p><button id="quit">수신·서버 종료</button></p>
+    </aside>
+  </div>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
