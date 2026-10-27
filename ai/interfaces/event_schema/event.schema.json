@@ -1,0 +1,34 @@
+{
+  "title": "DecodedDVSEvent",
+  "type": "object",
+  "required": [
+    "timestamp_us",
+    "x",
+    "y",
+    "polarity"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "timestamp_us": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "x": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 959
+    },
+    "y": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 719
+    },
+    "polarity": {
+      "type": "string",
+      "enum": [
+        "ON",
+        "OFF"
+      ]
+    }
+  }
+}
