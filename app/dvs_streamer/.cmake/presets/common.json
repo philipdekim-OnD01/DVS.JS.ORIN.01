@@ -1,0 +1,22 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "Paths",
+      "hidden": true,
+      "binaryDir": "${sourceDir}/output/${presetName}",
+      "cacheVariables": {
+        "DVS_STREAMER_ARTIFACT_DIR": "${sourceDir}/build/${presetName}"
+      }
+    },
+    {
+      "name": "MultiConfig",
+      "hidden": true,
+      "generator": "Ninja Multi-Config",
+      "cacheVariables": {
+        "CMAKE_CONFIGURATION_TYPES": "Debug;DebugLeakTest;RelWithDebInfo;Release",
+        "CMAKE_DEFAULT_BUILD_TYPE": "RelWithDebInfo"
+      }
+    }
+  ]
+}
