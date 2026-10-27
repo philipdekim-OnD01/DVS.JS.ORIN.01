@@ -1,0 +1,4 @@
+timestamp_us,x,y,polarity
+1000000,1,2,ON
+1000030,2,2,OFF
+2000000,4,3,ON
