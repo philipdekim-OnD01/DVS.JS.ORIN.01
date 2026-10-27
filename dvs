@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# 현재 SDK/Viewer 실행 경로. 수신 시작만으로 녹화하지 않는다.
+set -euo pipefail
+base=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+if (( EUID == 0 )); then
+  echo 'sudo 없이 일반 사용자로 ./dvs를 실행하세요.' >&2
+  exit 1
+fi
+action=${1:-start}
+if (( $# )); then shift; fi
+case "$action" in
+  start|stop|status) exec python3 "$base/app/run.py" "$action" "$@" ;;
+  *) echo '사용법: ./dvs [start [--no-web] [--settings 파일] | stop | status]' >&2; exit 2 ;;
+esac
