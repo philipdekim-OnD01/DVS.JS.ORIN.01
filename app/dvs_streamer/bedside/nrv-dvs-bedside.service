@@ -1,0 +1,17 @@
+# bedside 화면: adapter.py 가 dvs_streamer 의 화면·통계를 bedside viewer.py 형식으로 바꾸고
+# bedside viewer.py (http://127.0.0.1:8080, 키오스크 창이 보는 주소)를 띄운다. 화면의 녹화
+# 시작/정지를 수신기에 전하고, 녹화 중 끊겼으면 수신기가 다시 뜰 때 이어서 녹화한다.
+# 수신기(nrv-dvs-streamer)가 없을 때도 떠 있으면서 다시 뜨기를 기다린다.
+# 설치: install.sh (sudo)
+[Unit]
+Description=NRV DVS bedside screen (adapter + bedside viewer on 127.0.0.1:8080)
+After=nrv-dvs-streamer.service
+
+[Service]
+User=nrv
+ExecStart=/usr/bin/python3 /home/nrv/nrv-dvs-jetson/app/dvs_streamer/build/GCC-arm64/Release/bedside/adapter.py --recordings /nrv/recordings
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
