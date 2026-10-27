@@ -1,0 +1,36 @@
+# clangd config for VS Code (clangd extension) / any clangd client.
+# The compile database is generated on the Jetson by ./build.sh drivers (or compdb).
+CompileFlags:
+  CompilationDatabase: build
+  # Kernel build commands are GCC's; drop flags clang does not understand and
+  # do not turn warnings into errors inside the editor.
+  Remove:
+    - -fconserve-stack
+    - -fno-allow-store-data-races
+    - -femit-struct-debug-baseonly
+    - -fno-var-tracking
+    - -mabi=lp64
+    - -mstack-protector-guard*
+    - -Wimplicit-fallthrough=*
+    - -Wno-alloc-size-larger-than
+    - -Wno-dangling-pointer
+    - -Wno-format-truncation
+    - -Wno-maybe-uninitialized
+    - -Wno-packed-not-aligned
+    - -Wno-restrict
+    - -Wno-stringop-overflow
+    - -Wno-stringop-truncation
+    - -Werror*
+  Add:
+    - -Wno-unknown-warning-option
+Diagnostics:
+  # Kernel headers trip a few clang-only checks that GCC builds never see.
+  Suppress:
+    - drv_unknown_argument
+  ClangTidy:
+    CheckOptions:
+      # READ_ONCE()/WRITE_ONCE() on a pointer (e.g. dvs->register_ctrl) expand
+      # to compiletime_assert_rwonce_type(), which does sizeof() of that
+      # pointer to check the access width. That is intended, not a sizeof(A*)
+      # bug; keep the rest of bugprone-sizeof-expression enabled.
+      bugprone-sizeof-expression.WarnOnSizeOfPointerToAggregate: false
