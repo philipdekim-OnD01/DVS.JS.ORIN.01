@@ -1,0 +1,132 @@
+body {
+  margin: 0;
+  background: #111722;
+  color: #e6edf7;
+  font:
+    14px system-ui,
+    sans-serif;
+  overflow: hidden;
+}
+/* 창 높이에 딱 맞춤: 페이지는 스크롤되지 않고, 넘치면 오른쪽 칸만 스크롤 */
+main {
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+h1 {
+  font-size: 20px;
+  margin: 0;
+}
+.badge {
+  background: #243248;
+  padding: 5px 12px;
+  border-radius: 16px;
+}
+.layout {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+/* 화면 크기는 창 높이로 정함 (아래 상태 줄 몫을 뺌). section 폭 = 화면 폭, 상태 줄은 그 폭에서 줄바꿈 */
+section {
+  flex: 0 0 auto;
+  width: min-content;
+}
+canvas {
+  display: block;
+  height: min(720px, calc(100vh - 230px));
+  width: auto;
+  max-width: calc(100vw - 300px);
+  background: #808080;
+  image-rendering: pixelated;
+  border: 1px solid #34445d;
+}
+aside {
+  flex: 1 1 0;
+  min-width: 240px;
+  overflow-y: auto;
+  line-height: 1.5;
+  padding-left: 14px;
+  border-left: 1px solid #34445d;
+}
+.metric {
+  margin-bottom: 10px;
+}
+.metric b {
+  display: block;
+  font-size: 24px;
+}
+small,
+.muted {
+  color: #a5b5ca;
+}
+button {
+  color: #e6edf7;
+  background: #243248;
+  border: 1px solid #4d627e;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.rec {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+.rec input {
+  color: #e6edf7;
+  background: #1b2536;
+  border: 1px solid #4d627e;
+  border-radius: 4px;
+  padding: 2px;
+}
+.rec input[type="number"] {
+  width: 4.5em;
+}
+select {
+  color: #e6edf7;
+  background: #1b2536;
+  border: 1px solid #4d627e;
+  border-radius: 4px;
+  padding: 5px;
+}
+.rec #recbase {
+  width: 100%;
+  box-sizing: border-box;
+}
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.foot {
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 6px;
+  color: #a5b5ca;
+}
+.foot b {
+  color: #e6edf7;
+  font-weight: 600;
+}
+.on {
+  color: #fff;
+}
+.off {
+  color: #bcbcbc;
+}
+.bad {
+  color: #ff9292;
+}
