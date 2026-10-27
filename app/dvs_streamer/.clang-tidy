@@ -1,0 +1,3 @@
+CheckOptions:
+  # (void) 캐스트를 "반환값을 일부러 버림" 표시로 인정 (검사 자체는 유지)
+  bugprone-unused-return-value.AllowCastToVoid: true
