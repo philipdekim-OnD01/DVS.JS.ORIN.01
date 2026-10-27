@@ -1,0 +1,4 @@
+# CMake 프리셋 산출물: output/<preset> = 빌드 트리(_deps 포함), build/<preset> = 결과물
+/output/
+/build/
+/.cache/
