@@ -1,0 +1,11 @@
+# clangd: 빌드 시 output/<preset>/compile_commands.json 이 output/ 으로
+# 복사됩니다(CMakeLists.txt 의 copy_compile_commands).
+CompileFlags:
+  CompilationDatabase: output
+  # GCC 전용 플래그는 clangd(clang)가 모르므로 에디터에서만 뺍니다.
+  Remove:
+    - -Wuseless-cast
+    - -mcpu=native
+    - -Werror*
+  Add:
+    - -Wno-unknown-warning-option
