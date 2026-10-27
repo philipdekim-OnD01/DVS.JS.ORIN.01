@@ -1,0 +1,58 @@
+{
+  "version": 6,
+  "include": [ "common.json" ],
+  "configurePresets": [
+    {
+      "name": "GCC-arm64",
+      "displayName": "GCC arm64 (Jetson aarch64, native)",
+      "inherits": [ "Paths", "MultiConfig" ],
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "/usr/bin/g++"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "Linux-Only",
+      "hidden": true,
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "Debug-GCC-arm64",
+      "displayName": "Debug",
+      "inherits": [ "Linux-Only" ],
+      "configurePreset": "GCC-arm64",
+      "configuration": "Debug"
+    },
+    {
+      "name": "DebugLeakTest-GCC-arm64",
+      "displayName": "DebugLeakTest (ASan/UBSan/LSan)",
+      "inherits": [ "Linux-Only" ],
+      "configurePreset": "GCC-arm64",
+      "configuration": "DebugLeakTest"
+    },
+    {
+      "name": "RelWithDebInfo-GCC-arm64",
+      "displayName": "RelWithDebInfo",
+      "inherits": [ "Linux-Only" ],
+      "configurePreset": "GCC-arm64",
+      "configuration": "RelWithDebInfo"
+    },
+    {
+      "name": "Release-GCC-arm64",
+      "displayName": "Release",
+      "inherits": [ "Linux-Only" ],
+      "configurePreset": "GCC-arm64",
+      "configuration": "Release"
+    }
+  ]
+}
