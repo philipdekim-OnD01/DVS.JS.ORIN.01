@@ -1,0 +1,106 @@
+{
+  "version": 6,
+  "include": [ "common.json" ],
+  "configurePresets": [
+    {
+      "name": "Linux-GCC-Build",
+      "hidden": true,
+      "inherits": [ "Paths", "MultiConfig" ],
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "/usr/bin/g++"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "arm64Linux",
+      "hidden": true,
+      "cacheVariables": {
+        "NRV_DVS_TARGET_ARCH": "aarch64"
+      }
+    },
+    {
+      "name": "GCC-arm64",
+      "displayName": "GCC arm64 (Jetson aarch64, native)",
+      "inherits": [ "Linux-GCC-Build", "arm64Linux" ]
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "Linux-Only",
+      "hidden": true,
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "Debug-GCC-arm64",
+      "displayName": "Debug",
+      "inherits": [ "Linux-Only" ],
+      "configurePreset": "GCC-arm64",
+      "configuration": "Debug"
+    },
+    {
+      "name": "DebugLeakTest-GCC-arm64",
+      "displayName": "DebugLeakTest (ASan/UBSan/LSan)",
+      "inherits": [ "Linux-Only" ],
+      "configurePreset": "GCC-arm64",
+      "configuration": "DebugLeakTest"
+    },
+    {
+      "name": "RelWithDebInfo-GCC-arm64",
+      "displayName": "RelWithDebInfo",
+      "inherits": [ "Linux-Only" ],
+      "configurePreset": "GCC-arm64",
+      "configuration": "RelWithDebInfo"
+    },
+    {
+      "name": "Release-GCC-arm64",
+      "displayName": "Release",
+      "inherits": [ "Linux-Only" ],
+      "configurePreset": "GCC-arm64",
+      "configuration": "Release"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "Linux-Test",
+      "hidden": true,
+      "output": { "outputOnFailure": true },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "Debug-GCC-arm64",
+      "inherits": [ "Linux-Test" ],
+      "configurePreset": "GCC-arm64",
+      "configuration": "Debug"
+    },
+    {
+      "name": "DebugLeakTest-GCC-arm64",
+      "inherits": [ "Linux-Test" ],
+      "configurePreset": "GCC-arm64",
+      "configuration": "DebugLeakTest"
+    },
+    {
+      "name": "RelWithDebInfo-GCC-arm64",
+      "inherits": [ "Linux-Test" ],
+      "configurePreset": "GCC-arm64",
+      "configuration": "RelWithDebInfo"
+    },
+    {
+      "name": "Release-GCC-arm64",
+      "inherits": [ "Linux-Test" ],
+      "configurePreset": "GCC-arm64",
+      "configuration": "Release"
+    }
+  ]
+}
