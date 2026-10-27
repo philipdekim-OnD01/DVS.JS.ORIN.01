@@ -1,0 +1,18 @@
+# Reference only: scripts/boot-setup.sh install generates this entry on the target
+# (do not copy by hand). Placeholders are filled at install time:
+#   @BASE_DTB@  the single /boot/dtb/kernel_*.dtb whose model matches
+#               /proc/device-tree/model (file name is per board SKU, refreshed in
+#               place by the nvidia-l4t-kernel-dtbs package on BSP updates)
+#   @APPEND@    copied from the target's existing "primary" entry
+# FDT is REQUIRED: L4TLauncher (edk2-nvidia L4TLauncher.c) applies OVERLAYS only
+# while loading the FDT file; an entry with OVERLAYS but no FDT silently ignores
+# the overlay (observed on the validation board, 2026-10-12).
+# INITRD is the stock NVIDIA initrd: nrv_dvs.ko is selected from the rootfs by
+# /etc/depmod.d/nrv-dvs.conf (path B-2); the NVIDIA camera stack stays stock.
+LABEL nrv-dvs
+      MENU LABEL NRV DVS camera (nrv-dvs-jetson)
+      LINUX /boot/Image
+      FDT @BASE_DTB@
+      INITRD /boot/initrd
+      OVERLAYS /boot/nrv-dvs/cam1.dtbo
+      APPEND @APPEND@
