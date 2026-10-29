@@ -1,0 +1,279 @@
+// Delta10 2200FPS (Update 10.20) + Jetson RAW2 설정: embedded15 / data960 / C16 / CK04, RAW8(2A), DPHY 2298 Mbps.
+//@ DVS_VERSION S5KRC1S
+//@ Single
+//@ Description DELTA10_2200FPS_RAW2 (Update 10.20)
+//@ Device DELTA10
+// Delta-10: 960 x 720, 2200 FPS.
+
+//////////////////////////////////////////////////////////////////
+//////////////       Stop and disable external trigger     ///////
+//////////////////////////////////////////////////////////////////
+
+20:0100=00 // MODE_SELECT: stopped
+// [NOT USED (Default)]
+20:3A00=00 // EXT_SYNC_IN_EN_r: free-run
+20:303B=40 // PADIN_SEL
+20:3300=01 // [0] 1=Full sensor, 0=ROI; set 1 before editing, restore selected state last
+20:307E=01 // PLL_PD: off during setup
+20:3A02=00 // Burst mode
+
+//////////////////////////////////////////////////////////////////
+//////////////        System Setting       ///////////////////////
+//////////////////////////////////////////////////////////////////
+
+20:300C=00 // STREAM_OUT_MODE: MIPI
+20:30A1=00 // OUTIF_PARA_ENABLE
+
+20:3070=03 // PLL_P
+20:3071=01 // PLL_M_MSB
+20:3072=0E // PLL_M_LSB
+20:3073=00 // PLL_S
+20:3079=61 // PLL_DIV_G / PLL_DIV_DBR
+20:307A=11 // PLL_DIV_OP / PLL_DIV_OS
+20:307B=25 // PLL_DIV_VS / PLL_DIV_VP
+20:307E=00 // PLL_PD: on
+20:30A0=01 // OUTIF_ENABLE
+20:30A2=11 // DPHY_ENABLE
+20:30A3=1F // DPHY_ENABLE
+20:30A5=00 // DPHY_PLL_PMS
+20:30A6=8B // DPHY_PLL_PMS
+20:30A7=F8 // DPHY_PLL_PMS
+20:3080=3F // CLOCK_ENABLE
+20:3081=06 // CLOCK_ENABLE
+20:3083=6C // CLOCK_ENABLE
+
+//////////////////////////////////////////////////////////////////
+//////////////        OUTIF Setting        ///////////////////////
+//////////////////////////////////////////////////////////////////
+
+20:392C=08 // [6] Horizontal, [5] Vertical flip; [3] Merge group (keep); [2:0] 0=ON+OFF, 1=ON, 2=OFF, 4=All as ON
+20:3260=02 // [1] : DTAG_RAW2_FRAME_r (RAW2 mode), [0] : DTAG_RGB_FRAME_r
+20:3901=2A // CSI-2 Data Type 2A=RAW8, 2B=RAW10, 31=User defined 8-bit data type
+20:3902=40 // csi2_pkt_size_low
+20:3903=0B // csi2_pkt_size_high
+20:3906=2A // MIPI_CSI2_EMBD_DI_r: same as 3901 so VI stores the embedded line as frame line
+20:3907=0F // MIPI_EMBD_NUM_r, Number of embedded data
+20:3908=10 // MIPI_DATA_NUM_r, Number of column in data
+20:391A=3C // frm_cnt_low
+20:391B=00 // frm_cnt_high
+20:3910=81 // use_timeout / use_big_endian
+20:3911=7C // to_scnt0
+20:3912=E7 // to_scnt1_low
+20:3913=03 // to_scnt1_high
+20:3914=01 // to_mcnt
+20:3915=04 // MIPI clock / lane / frame configuration
+20:3916=40 // pkt_gap_low
+20:3917=00 // pkt_gap_high
+20:3918=40 // frm_gap_low
+20:3919=00 // frm_gap_high
+
+//////////////////////////////////////////////////////////////////
+//////////////     Scan and Reset Timing                ///////////
+//////////////////////////////////////////////////////////////////
+
+20:3210=1E // DTAG_GH_DELAY
+20:3211=00
+20:3212=00
+20:3213=04
+20:3214=00
+20:3215=00
+20:3216=04 // DTAG_SELX
+20:3217=04 // DTAG_SENSE
+20:3218=3C // DTAG_AY
+20:3219=00 // DTAG_AY_RST_GAP
+20:321A=00 // DTAG_APS_RST
+20:321C=02 // DTAG_COL_MARGIN
+20:321D=00 // DTAG_FRM_MARGIN_MSB
+20:321E=01 // DTAG_FRM_MARGIN_LSB
+
+20:3225=00 // DTAG_GR_ON_NUM_MSB
+20:3226=01 // DTAG_GR_ON_NUM_LSB
+20:3227=00 // DTAG_GR_OFF_NUM_MSB
+20:3228=01 // DTAG_GR_OFF_NUM_LSB
+
+//////////////////////////////////////////////////////////////////
+//////////////        Analog Setting: Normal       ///////////////
+//////////////////////////////////////////////////////////////////
+
+20:0157=1F // CRGS
+20:0166=0F // REG_DIV_BCM_BOT_UNIT_AMP
+20:0167=07 // Normal ON sensitivity
+20:0168=0F // Normal OFF sensitivity
+
+//////////////////////////////////////////////////////////////////
+//////////////        Timestamp Setting    ///////////////////////
+//////////////////////////////////////////////////////////////////
+
+20:32B1=00 // TSTAMP_SUB_UNIT_VAL_MSB
+20:32B2=D7 // TSTAMP_SUB_UNIT_VAL_LSB: 216 clocks = 1 us
+20:32B3=03 // TSTAMP_REF_UNIT_VAL_MSB
+20:32B4=E7 // TSTAMP_REF_UNIT_VAL_LSB
+20:32B6=00 // Timestamp reset released; external reset OFF
+20:32B7=00 // Normal reset source
+20:32B8=00 // TSTAMP_TRIG_UP_EN_r: Timestamp
+20:32B9=00 // TSTAMP_REG_UPDATE_r
+
+//////////////////////////////////////////////////////////////////
+//////////////        ESP Setting          ///////////////////////
+//////////////////////////////////////////////////////////////////
+
+20:311F=00 // IP_OUT_MUX: Crop
+20:3040=01 // ESP_ENABLE
+20:4308=01 // a2s_0_external_ts_mode
+20:4300=01 // a2s_0_enable
+20:4900=01 // aflckr_dvsv12_8bit_bypass
+
+// APS blocking: 1 bit per 40 columns/rows; 0=active. Full sensor: all masks 0.
+20:3292=00 // X [23:16]
+20:3293=00 // X [15:8]
+20:3294=00 // X [7:0]
+20:3295=00 // Y [17:16]
+20:3296=00 // Y [15:8]
+20:3297=00 // Y [7:0]
+
+//////////////////////////////////////////////////////////////////
+//////////////        CROP Setting: 960 x 720       ///////////////
+//////////////////////////////////////////////////////////////////
+
+// Inclusive corners: X1=0, Y1=0, X2=959, Y2=719 (decimal).
+20:3301=00 // [6:0] Y1 / 8 (integer), keep bit 7
+20:3302=FF // Start-row mask = (FF << (Y1 % 8)) & FF
+20:3303=59 // [6:0] Y2 / 8 (integer); keep bit 7
+20:3304=FF // End-row mask = (1 << ((Y2 % 8)+1))-1; same group: AND with 3302
+20:3305=00 // [2:0] X1 high byte
+20:3306=00 // X1 low byte; sensor coordinates are preserved
+20:3307=03 // [2:0] X2 high byte
+20:3308=BF // X2 low byte
+20:3309=00 // CROP_FRAME_SKIP_ENABLE
+20:330A=01 // CROP_FRAME_REPEAT_NUM
+20:330B=00 // CROP_VALID_FRAME_START_NUM
+20:330C=00 // CROP_VALID_FRAME_END_NUM
+
+//////////////////////////////////////////////////////////////////
+//////////////        Free-run / Trigger Parameters       ///////
+//////////////////////////////////////////////////////////////////
+
+20:320C=3D // Global setting: free-run
+20:3A10=02 // FRAME_WIDTH
+20:3A01=01 // [0] Rising, [4] Falling: 01=Rising edge, 10=Falling edge, 11=Any edge
+20:3A0C=00 // ECLK_FINE_COUNT_WIDTH_MSB
+20:3A0D=7C // ECLK_FINE_COUNT_WIDTH_LSB
+20:3A0E=03 // ECLK_COARSE_COUNT_WIDTH_MSB
+20:3A0F=1F // ECLK_COARSE_COUNT_WIDTH_LSB
+20:4C00=01 // DNS Bypass
+20:3091=6C // CCI_ADDRESS_CONTROL_2ND
+
+//////////////////////////////////////////////////////////////////
+//////////////        Event / Output Defaults            ///////
+//////////////////////////////////////////////////////////////////
+
+20:3282=00 // Subsampling disabled
+20:3284=00 // Normal events
+20:3A03=00 // Output signal: 0=Hold, 1=Reset, 2=Frame start, 3=Frame end
+20:3A11=00 // Output pulse width minus 1
+
+//////////////////////////////////////////////////////////////////
+//////////////        Apply Settings: Stopped           ///////
+//////////////////////////////////////////////////////////////////
+
+20:3300=01 // [0] 1=Full sensor, 0=ROI; set 1 before editing, restore selected state last
+20:3283=00 // DTAG external trigger
+20:303B=40 // PADIN_SEL
+20:3A00=00 // EXT_SYNC_IN_EN_r: free-run
+20:0100=00 // MODE_SELECT: stopped
+
+//////////////////////////////////////////////////////////////////
+//////////////        External Trigger Mode Examples      ///////
+//////////////////////////////////////////////////////////////////
+
+// [Selecting a trigger mode]
+// Examples below. To use a mode, remove conflicting register entries above
+// and use the values in the selected block instead.
+//
+// [Metadata]
+// 32B8=00: Timestamp - records elapsed sensor time.
+// 32B8=01: Frame index - records frame output order using REF/SUB counters
+// instead of elapsed time, so frames can be identified like frame numbers.
+//
+// [Counter reset - only when needed]
+// To restart timestamp/index counters, configure the trigger mode first,
+// then perform these steps with acquisition stopped, before START:
+// 1) 3A00=00              : disable external trigger input.
+// 2) 32B6=00, 32B7=01     : release reset and select register-controlled reset.
+// 3) 32B6=01              : assert reset; wait at least 2 ms.
+// 4) 32B6=00, 32B7=00     : release reset and restore the normal reset source.
+// 5) 3A00=01              : re-enable external trigger input.
+
+// [Single Mode] One frame per rising edge; input <= 2200 Hz.
+//20:0100=00 // Acquisition stopped
+//20:303B=40 // Disable trigger routing while configuring
+//20:3A00=00 // External trigger disabled
+//20:3283=01 // DTAG external trigger
+//20:3A02=00 // Single
+//20:320C=1F // Triggered scan, Global Reset enabled
+//20:3A01=01 // Rising edge
+//20:3A10=01 // One frame per trigger
+//20:3225=00 // GR_ON high byte
+//20:3226=01 // GR_ON = 1 frame
+//20:3227=00 // GR_OFF high byte
+//20:3228=00 // GR_OFF = 0 frames
+//20:32B6=00 // Reset released
+//20:32B7=00 // Restore normal reset source after one-shot reset
+//20:32B8=00 // Timestamp; use 01 for Frame index
+//20:32B9=00 // Register timestamp update disabled
+//20:3A00=01 // External trigger enabled
+//20:303B=42 // External input routing
+
+// [Burst Mode] One rising edge starts continuous capture.
+// FRAME_WIDTH does not limit the number of frames in this mode.
+//20:0100=00 // Acquisition stopped
+//20:303B=40 // Disable trigger routing while configuring
+//20:3A00=00 // External trigger disabled
+//20:3283=01 // DTAG external trigger
+//20:3A02=01 // Burst
+//20:320C=3D // Continuous scan, Global Reset disabled
+//20:3A01=01 // Rising edge
+//20:3A10=02 // Default FRAME_WIDTH
+//20:3225=00 // GR_ON high byte
+//20:3226=01 // Default GR_ON = 1
+//20:3227=00 // GR_OFF high byte
+//20:3228=01 // Default GR_OFF = 1
+//20:32B6=00 // Reset released
+//20:32B7=00 // Restore normal reset source after one-shot reset
+//20:32B8=00 // Timestamp; use 01 for Frame index
+//20:32B9=00 // Register timestamp update disabled
+//20:3A00=01 // External trigger enabled
+//20:303B=42 // External input routing
+
+// [BurstSingle Mode] N frames per rising edge; approximately 0.45 ms between frames.
+// Input Hz x N <= 2200. Examples: 1100 Hz x 2 or 550 Hz x 4 = 2200 frames/s.
+// Set 3A10=N and GR_ON=1, GR_OFF=N-1. Register values below are hexadecimal.
+// N=1: 3A10=01 / 3228=00; N=2: 02 / 01; N=3: 03 / 02; N=4: 04 / 03.
+//20:0100=00 // Acquisition stopped
+//20:303B=40 // Disable trigger routing while configuring
+//20:3A00=00 // External trigger disabled
+//20:3283=01 // DTAG external trigger
+//20:3A02=11 // Burst single
+//20:320C=1F // Triggered scan, Global Reset enabled
+//20:3A01=01 // Rising edge
+//20:3A10=02 // FRAME_WIDTH = N (example: 2)
+//20:3225=00 // GR_ON high byte
+//20:3226=01 // GR_ON = 1 frame
+//20:3227=00 // GR_OFF high byte
+//20:3228=01 // GR_OFF = N-1 (example: 1)
+//20:32B6=00 // Reset released
+//20:32B7=00 // Restore normal reset source after one-shot reset
+//20:32B8=00 // Timestamp; use 01 for Frame index
+//20:32B9=00 // Register timestamp update disabled
+//20:3A00=01 // External trigger enabled
+//20:303B=42 // External input routing
+
+//////////////////////////////////////////////////////////////////
+//////////////              Output signals               ///////
+//////////////////////////////////////////////////////////////////
+
+//20:303B=41 // Enable Sync Out pin; use 43 with trigger input
+//20:3080=3F // Enable MULTICLK for Sync Out
+//20:3A03=02 // 00=Global hold, 01=Global reset, 02=Frame start, 03=Frame end
+//20:3A11=FF // Width-1: 00..FF = 1..256 clocks; default high time = (value+1)/24 us
+//20:3A00=10 // Active-high internal output; use 11 with trigger input
