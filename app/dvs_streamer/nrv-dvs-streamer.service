@@ -1,0 +1,26 @@
+# 부팅하면 dvs_streamer(RAW2 수신)를 띄운다. 웹 화면은 bedside 화면(nrv-dvs-bedside.service,
+# http://127.0.0.1:8080)이 맡으므로 이 서비스의 viewer.py 는 웹 서버 없이 snapshot.bin 과 녹화
+# 폴더의 status.yaml 만 쓴다. 녹화는 화면의 시작 버튼으로만 시작한다 (bedside/adapter.py).
+# 끌 때(systemctl stop, 시스템 종료)는 run.py stop 이 dvs_streamer 에 SIGTERM 을 보내 마지막
+# 파일과 status.yaml 을 마무리하고, viewer.py 는 그 뒤에 끝난다.
+#
+# 설치: bedside/install.sh (sudo)
+# 상태: systemctl status nrv-dvs-streamer, 수동 정지: sudo systemctl stop nrv-dvs-streamer
+[Unit]
+Description=NRV DVS RAW2 receiver
+
+[Service]
+Type=forking
+User=nrv
+WorkingDirectory=/home/nrv/nrv-dvs-jetson/app/dvs_streamer/build/GCC-arm64/Release
+PIDFile=/home/nrv/nrv-dvs-jetson/app/dvs_streamer/build/GCC-arm64/Release/capture.pid
+ExecStart=/usr/bin/python3 run.py start --no-web --settings settings/Delta_10_2000FPS_RAW2.txt
+ExecStop=/usr/bin/python3 run.py stop
+TimeoutStopSec=60
+Restart=on-failure
+RestartSec=10
+# run.py 가 dvs_streamer 를 실시간(SCHED_RR 10)으로 띄울 수 있게
+LimitRTPRIO=10
+
+[Install]
+WantedBy=multi-user.target
