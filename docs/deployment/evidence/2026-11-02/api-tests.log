@@ -1,0 +1,13 @@
+PASS token required: HTTP 403
+PASS non-ASCII token refused: HTTP 403
+PASS foreign origin refused: HTTP 403
+PASS foreign host refused: HTTP 403
+PASS negative address: HTTP 400
+PASS address overflow: HTTP 400
+PASS boolean address: HTTP 400
+PASS batch limit: HTTP 400
+PASS unknown fields: HTTP 400
+PASS wrong request shape: HTTP 400
+PASS actual sensor read: {"source": "sensor_i2c", "read_at": "2026-11-01T19:46:02.322839+00:00", "device": "/dev/i2c-2", "slave_address": 16, "registers": [{"address": 14593, "address_hex": "0x3901", "value": 42, "value_hex": "0x2A", "setfile_value": 42, "matches_setfile": true}, {"address": 14598, "address_hex": "0x3906", "value": 42, "value_hex": "0x2A", "setfile_value": 42, "matches_setfile": true}, {"address": 14599, "address_hex": "0x3907", "value": 15, "value_hex": "0x0F", "setfile_value": 15, "matches_setfile": true}, {"address": 14600, "address_hex": "0x3908", "value": 16, "value_hex": "0x10", "setfile_value": 16, "matches_setfile": true}, {"address": 14613, "address_hex": "0x3915", "value": 4, "value_hex": "0x04", "setfile_value": 4, "matches_setfile": true}]}
+PASS read rate limit: HTTP 429
+PASS settings API checks

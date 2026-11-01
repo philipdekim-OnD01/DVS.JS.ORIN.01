@@ -1,0 +1,12 @@
+[0/2] Re-checking globbed directories...
+-- GLOB mismatch!
+[1/2] Re-running CMake...
+-- nrv_dvs: target = Linux aarch64 (raw=aarch64)
+-- nrv_dvs: GCC 13.3.0, Werror=ON
+-- nrv_dvs: ISA flags='-mcpu=native'
+-- nrv_dvs: artifacts -> /home/philip/DVS.JS.ORIN.01/sdk/build/GCC-arm64/<Config>
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/output/GCC-arm64
+[0/2] Re-checking globbed directories...
+[1/1] cd /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/output/GCC-arm64 && /usr/bin/cmake -E copy_if_different /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/python/run.py /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/python/sensor_settings.py /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/python/viewer.py /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/build/GCC-arm64/Release && /usr/bin/cmake -E copy_directory /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/web /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/build/GCC-arm64/Release/web && /usr/bin/cmake -E copy_directory /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/settings /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/build/GCC-arm64/Release/settings && /usr/bin/cmake -E copy_directory /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/bedside /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/build/GCC-arm64/Release/bedside

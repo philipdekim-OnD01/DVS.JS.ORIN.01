@@ -11,6 +11,7 @@
 | 1 | [SSH 접속 및 소스 다운로드](SOURCE-AND-SSH.md) | main 소스, Git 무결성, 실행 권한 확보 |
 | 2 | [드라이버·CAM1 overlay 설치](DRIVER-INSTALL.md) | 재부팅 후 overlay/모듈 적용 및 /dev/video0 확인 |
 | 3 | [SDK·디코더·뷰어 설치 및 실행](DECODER-AND-VIEWER.md) | 프레임·이벤트 증가와 웹 화면 확인 |
+| 4 | [설정창·레지스터 읽기](VIEWER-SETTINGS.md) | 실제 센서 값 조회, 표시 옵션·ROI·수신 상태 확인 |
 | 필요 시 | [문제 해결 및 복구](TROUBLESHOOTING.md) | 실패 계층을 구분하고 로그 확보 |
 
 드라이버는 커널에서 센서를 V4L2 장치로 제공한다. SDK와 `dvs_streamer`는 사용자 공간에서

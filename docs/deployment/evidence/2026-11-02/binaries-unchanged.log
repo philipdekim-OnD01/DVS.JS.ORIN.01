@@ -1,0 +1,3 @@
+build/nrv_dvs.ko: OK
+build/cam1.dtbo: OK
+app/dvs_streamer/build/GCC-arm64/Release/dvs_streamer: OK

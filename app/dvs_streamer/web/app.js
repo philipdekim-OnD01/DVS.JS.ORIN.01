@@ -14,6 +14,9 @@ const MODES = ["노이즈 제거 끔", "노이즈 제거 k=1", "노이즈 제거
 let denoise = 1,
   paused = false,
   flip = false,
+  flipX = false,
+  polarity = 0,
+  displayRoi = [0, W - 1, 0, H - 1],
   latest = null,
   shown = 0,
   frames = 0,
@@ -92,6 +95,26 @@ document.querySelector("#denoise").onclick = (e) => {
   if (!denoise) put("removed", "");
   if (latest) latest.dirty = true;
 };
+// Browser-only controls shared by the main toolbar and settings dialog.
+// Menu semantics follow the earlier hdmi_controls.py Image / Event and Display ROI groups.
+window.dvsDisplay = {
+  get: () => ({ paused, flipY: flip, flipX, polarity, denoise, roi: [...displayRoi] }),
+  set(options) {
+    if (typeof options.paused === "boolean") paused = options.paused;
+    if (typeof options.flipY === "boolean") flip = options.flipY;
+    if (typeof options.flipX === "boolean") flipX = options.flipX;
+    if ([0, 1, 2].includes(options.polarity)) polarity = options.polarity;
+    if ([0, 1, 2].includes(options.denoise)) denoise = options.denoise;
+    if (Array.isArray(options.roi) && options.roi.length === 4 && options.roi.every(Number.isInteger)) {
+      const [x0, x1, y0, y1] = options.roi;
+      if (x0 >= 0 && x0 <= x1 && x1 < W && y0 >= 0 && y0 <= y1 && y1 < H) displayRoi = [...options.roi];
+    }
+    rec("pause").textContent = paused ? "화면 다시 보기" : "화면 일시정지";
+    rec("denoise").textContent = MODES[denoise];
+    if (!denoise) rec("removed").textContent = "";
+    if (latest) latest.dirty = true;
+  },
+};
 const put = (id, value) => (document.getElementById(id).textContent = value);
 // 노이즈 제거. k=1/2 (denoise 1/2): 이벤트 화소마다 주변 8칸의 near 를 1씩 올린 뒤 near<k 인 이벤트는 배경.
 // 가장자리는 칸 밖을 배경으로 봄.
@@ -167,7 +190,8 @@ for (let b = 0; b < 256; b++)
   for (let j = 0; j < 4; j++) QUAD[b * 4 + j] = COLORS[(b >> (2 * j)) & 3];
 function draw(now) {
   tick(now);
-  if (latest && latest.dirty && !paused && !denoise) {
+  const fullRoi = displayRoi[0] === 0 && displayRoi[1] === W - 1 && displayRoi[2] === 0 && displayRoi[3] === H - 1;
+  if (latest && latest.dirty && !paused && !denoise && !flipX && !polarity && fullRoi) {
     const px = latest.pixels;
     for (let y = 0; y < H; y++) {
       const row = (flip ? H - 1 - y : y) * W,
@@ -219,8 +243,9 @@ function draw(now) {
         const i = y * W + x;
         let v = idx[i];
         if (v && denoise && near[i] < denoise) v = 0;
+        if ((polarity && v !== polarity) || x < displayRoi[0] || x > displayRoi[1] || y < displayRoi[2] || y > displayRoi[3]) v = 0;
         if (v) ++kept;
-        rgba[row + x] = COLORS[v];
+        rgba[row + (flipX ? W - 1 - x : x)] = COLORS[v];
       }
     }
     if (denoise)

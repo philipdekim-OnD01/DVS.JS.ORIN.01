@@ -1,0 +1,13 @@
+test_live_result_closes_fd_and_rate_limits (test_sensor_settings.SensorSettingsTest.test_live_result_closes_fd_and_rate_limits) ... ok
+test_ordered_parser_and_driver_owned_stream_control (test_sensor_settings.SensorSettingsTest.test_ordered_parser_and_driver_owned_stream_control) ... ok
+test_refuse_wrong_driver_and_concurrent_read (test_sensor_settings.SensorSettingsTest.test_refuse_wrong_driver_and_concurrent_read) ... ok
+test_reject_malformed_or_unbounded_addresses_without_touching_bus (test_sensor_settings.SensorSettingsTest.test_reject_malformed_or_unbounded_addresses_without_touching_bus) ... ok
+test_scanner_matches_streamer_field_width_and_whitespace (test_sensor_settings.SensorSettingsTest.test_scanner_matches_streamer_field_width_and_whitespace) ... ok
+test_snapshot_does_not_claim_later_file_edits_are_applied (test_sensor_settings.SensorSettingsTest.test_snapshot_does_not_claim_later_file_edits_are_applied) ... ok
+test_transaction_failure_closes_fd_and_releases_lock (test_sensor_settings.SensorSettingsTest.test_transaction_failure_closes_fd_and_releases_lock) ... ok
+test_two_message_read_and_partial_transfer_failure (test_sensor_settings.SensorSettingsTest.test_two_message_read_and_partial_transfer_failure) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.019s
+
+OK

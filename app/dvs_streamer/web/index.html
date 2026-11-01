@@ -10,7 +10,7 @@
 <main>
   <header>
     <h1>NRV · DVS 실시간 보기</h1>
-    <span class="badge" id="status">연결 중</span>
+    <div class="header-actions"><span class="badge" id="status">연결 중</span><button id="settings-open" aria-haspopup="dialog">설정</button></div>
   </header>
   <div class="layout">
     <section>
@@ -52,6 +52,76 @@
     </aside>
   </div>
 </main>
+<dialog id="settings-dialog" aria-labelledby="settings-title">
+  <div class="settings-heading">
+    <div><small>NRV · S5KRC1S</small><h2 id="settings-title">디코더 설정</h2></div>
+    <button id="settings-close" aria-label="설정창 닫기">닫기 <span aria-hidden="true">×</span></button>
+  </div>
+  <div class="settings-tabs" role="tablist" aria-label="설정 메뉴">
+    <button role="tab" id="tab-registers" aria-controls="panel-registers" aria-selected="true" data-panel="registers">센서 레지스터</button>
+    <button role="tab" id="tab-display" aria-controls="panel-display" aria-selected="false" tabindex="-1" data-panel="display">영상·표시</button>
+    <button role="tab" id="tab-health" aria-controls="panel-health" aria-selected="false" tabindex="-1" data-panel="health">수신 상태</button>
+    <button role="tab" id="tab-setfile" aria-controls="panel-setfile" aria-selected="false" tabindex="-1" data-panel="setfile">설정 파일</button>
+  </div>
+  <div class="settings-content">
+    <p id="settings-message" class="settings-message" role="status" aria-live="polite">설정 정보를 불러오는 중입니다.</p>
+    <section id="panel-registers" role="tabpanel" aria-labelledby="tab-registers">
+      <div class="settings-title-row"><h3>센서에서 직접 읽기</h3><span class="settings-chip">읽기 전용</span></div>
+      <p class="settings-help">버튼을 누를 때 현재 값을 읽습니다. 설정 파일의 기대값과 비교하며, 센서 레지스터는 변경하지 않습니다.</p>
+      <dl class="settings-device" id="settings-device"></dl>
+      <div class="settings-presets" aria-label="레지스터 주소 모음">
+        <button data-registers="mipi">MIPI / RAW2</button><button data-registers="sensitivity">감도</button>
+        <button data-registers="event">이벤트·그룹</button><button data-registers="roi">센서 ROI</button>
+      </div>
+      <form id="register-form">
+        <label for="register-addresses">레지스터 주소 <small>16진수 · 쉼표 또는 공백으로 구분 · 최대 16개</small></label>
+        <div class="settings-input-row"><input id="register-addresses" value="0x3901, 0x3906, 0x3907, 0x3908, 0x3915" autocomplete="off" spellcheck="false" required><button type="submit" id="register-read" class="settings-primary">레지스터 읽기</button></div>
+      </form>
+      <p id="register-message" class="settings-message" role="status" aria-live="polite">아직 읽지 않았습니다.</p>
+      <div class="settings-table-wrap"><table><thead><tr><th>주소</th><th>센서 실제값</th><th>설정 기대값</th><th>비교</th></tr></thead><tbody id="register-results"><tr><td colspan="4" class="settings-empty">주소 모음을 선택하고 읽기를 눌러 주세요.</td></tr></tbody></table></div>
+      <div id="register-bits" class="settings-bits" hidden></div>
+    </section>
+    <section id="panel-display" role="tabpanel" aria-labelledby="tab-display" hidden>
+      <h3>영상 / 이벤트</h3>
+      <p class="settings-help">이 브라우저의 표시에 적용됩니다. 녹화 원본과 센서 설정은 유지됩니다. 프리뷰 간격은 연결된 모든 뷰어에 적용됩니다.</p>
+      <div class="settings-grid">
+        <label>프리뷰 합성<select id="display-preview"><option value="0">센서 프레임 1장</option><option value="120">120 fps</option><option value="60">60 fps</option><option value="30">30 fps</option><option value="15">15 fps</option></select></label>
+        <label>이벤트 극성<select id="display-polarity"><option value="0">ON + OFF</option><option value="1">ON만 표시</option><option value="2">OFF만 표시</option></select></label>
+        <label>노이즈 제거<select id="display-denoise"><option value="0">끔</option><option value="1">주변 이벤트 1개 이상</option><option value="2">주변 이벤트 2개 이상</option></select></label>
+        <div class="settings-checks"><label><input type="checkbox" id="display-flip-x"> 좌우 반전 (Flip X)</label><label><input type="checkbox" id="display-flip-y"> 상하 반전 (Flip Y)</label></div>
+      </div>
+      <h3>표시 ROI / Crop</h3>
+      <p class="settings-help">센서 좌표에서 지정한 범위만 표시합니다. 범위 밖은 배경색으로 숨깁니다.</p>
+      <form id="display-roi-form">
+        <div class="settings-grid settings-roi">
+          <label>X 시작<input id="roi-x0" type="number" min="0" max="959" value="0" required></label>
+          <label>X 끝<input id="roi-x1" type="number" min="0" max="959" value="959" required></label>
+          <label>Y 시작<input id="roi-y0" type="number" min="0" max="719" value="0" required></label>
+          <label>Y 끝<input id="roi-y1" type="number" min="0" max="719" value="719" required></label>
+        </div>
+        <div class="settings-actions"><button type="submit">표시 ROI 적용</button><button id="display-roi-reset" type="button">전체 영역</button></div>
+      </form>
+      <p id="display-message" class="settings-message" role="status" aria-live="polite"></p>
+      <div class="settings-actions"><button id="display-pause">화면 일시정지</button><button id="display-save">PNG 저장</button><button id="display-reset">표시 설정 초기화</button></div>
+    </section>
+    <section id="panel-health" role="tabpanel" aria-labelledby="tab-health" hidden>
+      <div class="settings-title-row"><h3>센서·디코더 수신 상태</h3><button id="settings-refresh">상태 새로고침</button></div>
+      <p class="settings-help" id="health-time">—</p>
+      <dl class="settings-health" id="settings-health"></dl>
+      <p class="settings-help">RAW2 시각 관련 카운터는 후보 시각의 모호성·역행을 나타냅니다. 수신 오류나 CSI 버퍼 손실과 별도로 확인하세요.</p>
+    </section>
+    <section id="panel-setfile" role="tabpanel" aria-labelledby="tab-setfile" hidden>
+      <h3>현재 수신기의 설정 파일</h3><p id="setfile-name" class="settings-filename">—</p>
+      <p id="setfile-summary" class="settings-help"></p>
+      <details><summary>파일 경로와 SHA-256</summary><pre id="setfile-hash"></pre></details>
+      <label class="settings-filter" for="setfile-filter">주소·값·설명 검색<input id="setfile-filter" type="search" placeholder="예: 3907, sensitivity, ROI" autocomplete="off"></label>
+      <div class="settings-table-wrap"><table><thead><tr><th>줄</th><th>주소</th><th>설정값</th><th>설명 / 적용</th></tr></thead><tbody id="setfile-results"></tbody></table></div>
+      <p class="settings-help" id="setfile-note"></p>
+    </section>
+  </div>
+  <div class="settings-footer"><span>수신은 설정창을 닫아도 계속됩니다.</span><span id="settings-format">—</span></div>
+</dialog>
 <script src="app.js"></script>
+<script src="settings.js"></script>
 </body>
 </html>

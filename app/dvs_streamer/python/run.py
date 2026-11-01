@@ -46,7 +46,8 @@ def main():
         control.unlink(missing_ok=True)
         os.mkfifo(control, 0o600)
         # dvs_streamer | viewer.py : viewer 가 화면을 받아 snapshot.bin 갱신 (+ 웹 서버)
-        viewer = ['python3',str(BASE/'viewer.py'),'--directory',str(STATE),'--control',str(control)]
+        viewer = ['python3',str(BASE/'viewer.py'),'--directory',str(STATE),'--control',str(control),
+                  '--settings',str(args.settings.resolve())]
         viewer += ['--no-http'] if args.no_web else []
         children = {}
         try:

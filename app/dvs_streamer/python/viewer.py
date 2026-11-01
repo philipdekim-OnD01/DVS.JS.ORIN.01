@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""dvs_live 출력(stdin)을 받아 최신 이벤트 영상을 보여주는 웹 뷰어. 센서 제어 기능은 없다.
+"""dvs_live 출력(stdin)을 받아 최신 이벤트 영상과 센서 읽기 전용 설정창을 제공한다.
 
 사용: dvs_live ... <제어 FIFO> | viewer.py --control <제어 FIFO>
 받은 화면은 --directory 의 snapshot.bin 으로도 남겨 desktop.py, run.py status 가 읽는다.
@@ -21,6 +21,9 @@ import sys
 import threading
 import time
 import os
+import secrets
+import platform
+from sensor_settings import SensorSettings, SensorBusy, SensorUnavailable
 import numpy as np
 import yaml
 from PIL import Image
@@ -36,7 +39,8 @@ GRAY_LUT = list(GRAY_VALUES) + [128] * 253
 WEB = Path(__file__).resolve().parent/'web'
 STATIC = {'/': ('index.html', 'text/html; charset=utf-8'),
           '/style.css': ('style.css', 'text/css; charset=utf-8'),
-          '/app.js': ('app.js', 'text/javascript; charset=utf-8')}
+          '/app.js': ('app.js', 'text/javascript; charset=utf-8'),
+          '/settings.js': ('settings.js', 'text/javascript; charset=utf-8')}
 
 def grayscale_image(pixels):
     """인덱스 화소를 RGB 확장 없이8비트 회색조로 매핑한다."""
@@ -165,6 +169,7 @@ def main():
     ap.add_argument('--port', type=int, default=8080)
     ap.add_argument('--no-http', action='store_true', help='화면 서버 없이 snapshot.bin 만 갱신')
     ap.add_argument('--control', type=Path, required=True, help='dvs_live 제어 FIFO (녹화 시작/정지)')
+    ap.add_argument('--settings', type=Path, help='현재 수신기에 전달한 센서 setfile')
     ap.add_argument('--recordings', type=Path, default=Path(__file__).resolve().parent/'recordings',
                     help='녹화 저장 폴더 기본값 (웹 화면에서 바꿀 수 있음)')
     args = ap.parse_args()
@@ -175,6 +180,19 @@ def main():
     latest = threading.Condition()  # 최신 화면 (.frame, .id, .ts 센서 시각), 최근 화면들 (.recent: (id, ts, 화면))
     latest.frame, latest.id, latest.ts = b'', 0, 0
     latest.recent = collections.deque(maxlen=128)  # 브라우저가 건너뛰지 않고 차례로 받게 남겨 둠
+    sensor = SensorSettings(args.settings) if args.settings else None
+    settings_token = secrets.token_urlsafe(32)
+    hosts = ['127.0.0.1'] + lan_address()
+    allowed_hosts = {f'{h}:{args.port}' for h in hosts} | {f'localhost:{args.port}'}
+
+    def capture_state():
+        with latest:
+            frame = latest.frame
+        if not frame:
+            return {}
+        state = json.loads(frame[4:4+struct.unpack('!I', frame[:4])[0]])
+        state['update_age'] = max(0, time.monotonic() - state['monotonic'])
+        return state
 
     class Handler(BaseHTTPRequestHandler):
         protocol_version = 'HTTP/1.1'
@@ -186,6 +204,19 @@ def main():
 
         def do_GET(self):
             route = self.path.split('?', 1)[0]
+            if route == '/api/settings':
+                if not self.settings_origin_ok():
+                    self.json_reply(403, {'error': '이 뷰어 주소에서 설정창을 열어 주세요.'})
+                    return
+                try:
+                    info = sensor.describe() if sensor else {'error': '실행 시 setfile 경로가 전달되지 않았습니다.'}
+                    self.json_reply(200, {'sensor': info, 'capture': capture_state(),
+                                         'system': {'hostname': socket.gethostname(), 'kernel': platform.release(),
+                                                    'architecture': platform.machine()},
+                                         'token': settings_token})
+                except (ValueError, OSError) as exc:
+                    self.json_reply(503, {'error': str(exc)})
+                return
             if route == '/frame':
                 self.frame()
                 return
@@ -222,7 +253,11 @@ def main():
             {"action": "preview", "fps"} (화면 1장에 합칠 간격, fps 0 = 센서 프레임 하나씩) 또는
             {"action": "start", "base", "rotate", "file_gib", "files", "reserve_mib"} (뺀 값은 기본값) 를
             dvs_live 제어 FIFO 의 한 줄 명령으로 바꿔 보낸다."""
-            if self.path.split('?', 1)[0] != '/record':
+            route = self.path.split('?', 1)[0]
+            if route == '/api/registers/read':
+                self.register_read()
+                return
+            if route != '/record':
                 self.send_error(404)
                 return
             status, reply = 200, {}
@@ -271,6 +306,54 @@ def main():
             self.end_headers()
             self.wfile.write(body)
 
+        def settings_origin_ok(self):
+            host = self.headers.get('Host', '')
+            origin = self.headers.get('Origin')
+            return (host in allowed_hosts and (origin is None or origin == f'http://{host}')
+                    and self.headers.get('Sec-Fetch-Site', '') not in ('cross-site', 'same-site'))
+
+        def json_reply(self, status, payload):
+            body = json.dumps(payload, ensure_ascii=False).encode()
+            self.send_response(status)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Content-Length', str(len(body)))
+            self.send_header('Cache-Control', 'no-store')
+            self.send_header('X-Content-Type-Options', 'nosniff')
+            self.end_headers()
+            try:
+                self.wfile.write(body)
+            except (BrokenPipeError, ConnectionResetError):
+                pass
+
+        def register_read(self):
+            # A page on another origin cannot acquire the per-process token or send this header.
+            # These LAN-only controls deliberately expose no register-write operation.
+            self.close_connection = True
+            if (not self.settings_origin_ok() or
+                    not secrets.compare_digest(self.headers.get('X-DVS-Token', '').encode(), settings_token.encode())):
+                self.json_reply(403, {'error': '설정창을 다시 열어 요청해 주세요.'})
+                return
+            try:
+                if self.headers.get_content_type() != 'application/json':
+                    raise ValueError('application/json 요청이 필요합니다.')
+                size = int(self.headers.get('Content-Length', '0'))
+                if self.headers.get('Transfer-Encoding') or not 0 < size <= 2048:
+                    raise ValueError('요청 본문은 1~2048바이트여야 합니다.')
+                request = json.loads(self.rfile.read(size))
+                if not isinstance(request, dict) or set(request) != {'addresses'}:
+                    raise ValueError('addresses 목록만 보내 주세요.')
+                state = capture_state()
+                if (not sensor or state.get('state') != 'live' or state.get('update_age', 99) >= 2
+                        or state.get('last_good_age', 99) >= 2 or state.get('seconds', 0) < 2):
+                    raise SensorUnavailable('안정적인 센서 수신 중에만 레지스터를 읽을 수 있습니다.')
+                self.json_reply(200, sensor.read_registers(request['addresses']))
+            except SensorBusy as exc:
+                self.json_reply(429, {'error': str(exc)})
+            except (ValueError, TypeError, UnicodeError) as exc:
+                self.json_reply(400, {'error': str(exc)})
+            except (SensorUnavailable, OSError) as exc:
+                self.json_reply(503, {'error': str(exc)})
+
         def frame(self):
             """after=<번호> 다음 화면을 보낸다 (1초 안에 없으면 지금 화면). 브라우저가 차례로
             받아 쌓아 두고 고르게 그림. gap=<us>: after 화면보다 표시 시각으로 이만큼 이상 뒤인
@@ -314,7 +397,7 @@ def main():
 
     if not args.no_http:
         # 이 기기와 로컬망에서만 접속 (0.0.0.0 처럼 모든 인터페이스에 열지 않음)
-        for host in ['127.0.0.1'] + lan_address():
+        for host in hosts:
             server = ThreadingHTTPServer((host, args.port), Handler)
             threading.Thread(target=server.serve_forever, daemon=True).start()
             print(f'NRV 뷰어 http://{host}:{args.port}', flush=True)
