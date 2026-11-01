@@ -1,5 +1,16 @@
 # Open issues
 
+## Deployment evidence update — 2026-11-01
+
+The historical issues below describe the original review state. A subsequent
+Orin Nano Super R39.2.1 deployment verified module/overlay activation after a
+power cycle, stock NVIDIA camera module use, `/dev/video0`, register-list
+application and RAW2 live decoding/display. See the [deployment record](deployment/JETSON-2026-11-01.md)
+and [installation guides](guides/README.md).
+This does not close the unmeasured lane-rate/deskew/clock questions, all control
+edge cases, GROUP AER runtime testing, or long-duration reliability testing.
+RAW2 timestamp ambiguity/order counters also remain documented limitations.
+
 ## 1. NVCSI deskew not used (recorded 2026-10-12, review required)
 
 **Situation**

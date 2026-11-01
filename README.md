@@ -1,3 +1,12 @@
+# 설치·운영 가이드
+
+처음 설치하거나 다시 실행할 때는 [가이드 목록](docs/guides/README.md)부터 확인하세요.
+
+- [SSH 접속·소스 다운로드](docs/guides/SOURCE-AND-SSH.md)
+- [DVS 드라이버·CAM1 overlay 설치](docs/guides/DRIVER-INSTALL.md)
+- [SDK·디코더·실시간 뷰어 설치 및 실행](docs/guides/DECODER-AND-VIEWER.md)
+- [문제 해결·복구](docs/guides/TROUBLESHOOTING.md)
+
 # Jetson .121 설치·실시간 표시 기록 (2026-11-01)
 
 R39.2.1 / 커널 6.8.12-1021-tegra에서 드라이버 설치, 재부팅 후 인식,
