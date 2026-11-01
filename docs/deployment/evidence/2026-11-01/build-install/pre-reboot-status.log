@@ -1,0 +1,6 @@
+[boot-setup] DEFAULT: nrv-dvs; kernel cmdline boot entry is not exposed, checking effects instead
+[boot-setup] WARNING: DT overlay: NOT applied (no nrv_dvs node)
+[boot-setup] WARNING: nrv_dvs: not loaded
+[boot-setup] tegra_camera: loaded = stock /lib/modules/6.8.12-1021-tegra/updates/drivers/media/platform/tegra/camera/tegra-camera.ko
+[boot-setup] WARNING: no /dev/video*
+[boot-setup] WARNING: status: NOT ready

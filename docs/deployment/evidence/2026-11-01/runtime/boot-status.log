@@ -1,0 +1,7 @@
+[boot-setup] DEFAULT: nrv-dvs; kernel cmdline boot entry is not exposed, checking effects instead
+[boot-setup] DT overlay: applied (nrv_dvs@10)
+[boot-setup] nrv_dvs: loaded = build/ (build-id 4005e0bfbd0c)
+[boot-setup] tegra_camera: loaded = stock /lib/modules/6.8.12-1021-tegra/updates/drivers/media/platform/tegra/camera/tegra-camera.ko
+[boot-setup] nrv_dvs params: none (settings via V4L2 control nrv_register_writes)
+[boot-setup] video nodes: /dev/video0
+[boot-setup] status: ready (receive test: ./dvs start)

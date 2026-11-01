@@ -1,0 +1,33 @@
+=== ac3-modules
+FAIL ac3-modules (see build/tests/ac3-modules.log)
+    FAIL nrv_dvs.ko exists
+    Traceback (most recent call last):
+      File "/home/philip/DVS.JS.ORIN.01/tests/checks.py", line 391, in <module>
+        sys.exit(main(sys.argv[1:]))
+      File "/home/philip/DVS.JS.ORIN.01/tests/checks.py", line 385, in main
+        {'modules': modules, 'app': app, 'scan': scan}[argv[0]](root)
+      File "/home/philip/DVS.JS.ORIN.01/tests/checks.py", line 146, in modules
+        vm = sh('modinfo', '-F', 'vermagic', str(sen)).strip()
+      File "/home/philip/DVS.JS.ORIN.01/tests/checks.py", line 27, in sh
+        return subprocess.run(cmd, capture_output=True, text=True, check=True).stdout
+      File "/usr/lib/python3.10/subprocess.py", line 526, in run
+        raise CalledProcessError(retcode, process.args,
+    subprocess.CalledProcessError: Command '('modinfo', '-F', 'vermagic', '/home/philip/DVS.JS.ORIN.01/build/nrv_dvs.ko')' returned non-zero exit status 1.
+=== ac4-overlay
+PASS ac4-overlay
+    merged nrv_dvs@10 compatible = nrv,fx20-sensor-board samsung,s5krc1s
+    sha256 base=3151666bb7125c217f3d93c42ca980f57d5c716fda4d2b69f7953cec40520484 dtbo=6a7e74e0d524f3c06549615423f6b9c6be0458eef3291b44d16f39a8c9b0b15b
+=== ac4-compare-dt
+PASS ac4-compare-dt
+    reference DTB /boot/dtb/nrv-power-h128-cam1-20261008.dtb not present
+=== ac5-app
+FAIL ac5-app (see build/tests/ac5-app.log)
+    /home/philip/DVS.JS.ORIN.01/build/dvs_live: cannot open `/home/philip/DVS.JS.ORIN.01/build/dvs_live' (No such file or directory)
+=== ac7-scan
+PASS ac7-scan
+    PASS no paths into the reference validation tree in build/runtime/test files: []
+    PASS build/test code invokes no module load/unload, initramfs, boot changes, package installs or protected-path writes: []
+    scan: all checks passed
+    tracked build products/NVIDIA files: none
+=== verification boundary: NOT loaded, NOT booted, NOT receive-tested.
+check-build: FAILED: ac3-modules ac5-app

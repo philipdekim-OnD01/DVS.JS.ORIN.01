@@ -1,0 +1,19 @@
+ubuntu
+Linux ubuntu 6.8.12-1021-tegra #1 SMP PREEMPT Thu Aug  6 21:56:04 PDT 2026 aarch64 aarch64 aarch64 GNU/Linux
+# R39 (release), REVISION: 2.1, GCID: 46758480, BOARD: generic, EABI: aarch64, DATE: Fri Aug  7 05:54:22 AM UTC 2026
+# KERNEL_VARIANT: oot
+TARGET_USERSPACE_LIB_DIR=nvidia
+TARGET_USERSPACE_LIB_DIR_PATH=usr/lib/aarch64-linux-gnu/nvidia
+NVIDIA Jetson Orin Nano Engineering Reference Developer Kit Super
+g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+Copyright (C) 2023 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+cmake version 3.28.3
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+e88a0a87e66d092cebdf15e1fd0924c6e83f68beaa21551ab7b8c05bc82b4fd1  /lib/modules/6.8.12-1021-tegra/build/Module.symvers
+240382019540e53d873725b656aafefad26a33bef27755dfb6f1f663ede6e57d  /usr/src/nvidia/nvidia-public/Module.symvers
+## main...origin/main
+04908bb Update source import audit after restoring 11 missing files

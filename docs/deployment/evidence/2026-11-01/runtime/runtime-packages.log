@@ -1,0 +1,4 @@
+psmisc	23.7-1build1
+python3-numpy	1:1.26.4+ds-6ubuntu1
+python3-pil:arm64	10.2.0-1ubuntu1.2
+python3-yaml	6.0.1-2build2

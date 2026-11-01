@@ -1,0 +1,4 @@
+/home/philip/DVS.JS.ORIN.01/device-tree/p3768-cam1/cam1.dts:32.26-35.9: Warning (unit_address_vs_reg): /fragment@1/__overlay__/channel@0/ports/port@0/endpoint@0: node has a unit name, but no reg or ranges property
+/home/philip/DVS.JS.ORIN.01/device-tree/p3768-cam1/cam1.dts:38.27-59: Warning (unit_address_vs_reg): /fragment@1/__overlay__/channel@0/ports/port@1/endpoint@1: node has a unit name, but no reg or ranges property
+/home/philip/DVS.JS.ORIN.01/device-tree/p3768-cam1/cam1.dts:11.10-19.6: Warning (graph_child_address): /fragment@0/__overlay__/ports: graph node has single child node 'port@0', #address-cells/#size-cells are not necessary
+/home/philip/DVS.JS.ORIN.01/device-tree/p3768-cam1/cam1.dts:130.11-138.7: Warning (graph_child_address): /fragment@2/__overlay__/nrv_dvs@10/ports: graph node has single child node 'port@0', #address-cells/#size-cells are not necessary

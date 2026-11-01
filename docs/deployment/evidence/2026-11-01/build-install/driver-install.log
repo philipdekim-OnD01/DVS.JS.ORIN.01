@@ -1,0 +1,9 @@
+[boot-setup] kernel 6.8.12-1021-tegra, build artifacts present, vermagic OK
+[boot-setup] base DTB: /boot/dtb/kernel_tegra234-p3768-0000+p3767-0005-nv-super.dtb
+[boot-setup] cam1.dtbo applies offline to base DTB; nrv_dvs@10 present
+[boot-setup] extlinux: primary entry found (APPEND will be copied); DEFAULT is 'primary'
+[boot-setup] check OK
+[boot-setup] modules -> /lib/modules/6.8.12-1021-tegra/updates/nrv
+[boot-setup] depmod override -> /etc/depmod.d/nrv-dvs.conf
+[boot-setup] modules.dep now resolves nrv_dvs to /lib/modules/6.8.12-1021-tegra/updates/nrv, tegra_camera to /lib/modules/6.8.12-1021-tegra/updates/drivers/media/platform/tegra/camera/tegra-camera.ko
+[boot-setup] installed. DEFAULT=nrv-dvs (previous: primary). Reboot to activate, then run: scripts/boot-setup.sh status

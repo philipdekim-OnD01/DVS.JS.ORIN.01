@@ -1,0 +1,5 @@
+[boot-setup] kernel 6.8.12-1021-tegra, build artifacts present, vermagic OK
+[boot-setup] base DTB: /boot/dtb/kernel_tegra234-p3768-0000+p3767-0005-nv-super.dtb
+[boot-setup] cam1.dtbo applies offline to base DTB; nrv_dvs@10 present
+[boot-setup] extlinux: primary entry found (APPEND will be copied); DEFAULT is 'primary'
+[boot-setup] check OK

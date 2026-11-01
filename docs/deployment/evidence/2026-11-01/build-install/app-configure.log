@@ -1,0 +1,26 @@
+Preset CMake variables:
+
+  CMAKE_CONFIGURATION_TYPES="Debug;DebugLeakTest;RelWithDebInfo;Release"
+  CMAKE_CXX_COMPILER="/usr/bin/g++"
+  CMAKE_DEFAULT_BUILD_TYPE="RelWithDebInfo"
+  DVS_STREAMER_ARTIFACT_DIR="/home/philip/DVS.JS.ORIN.01/app/dvs_streamer/build/GCC-arm64"
+
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- nrv_dvs: target = Linux aarch64 (raw=aarch64)
+-- nrv_dvs: GCC 13.3.0, Werror=ON
+-- nrv_dvs: ISA flags='-mcpu=native'
+-- nrv_dvs: artifacts -> /home/philip/DVS.JS.ORIN.01/sdk/build/GCC-arm64/<Config>
+-- Performing Test COMPILER_HAS_HIDDEN_VISIBILITY
+-- Performing Test COMPILER_HAS_HIDDEN_VISIBILITY - Success
+-- Performing Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY
+-- Performing Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY - Success
+-- Performing Test COMPILER_HAS_DEPRECATED_ATTR
+-- Performing Test COMPILER_HAS_DEPRECATED_ATTR - Success
+-- Configuring done (0.9s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/output/GCC-arm64

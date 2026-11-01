@@ -1,0 +1,2 @@
+[build.sh] running: cmake --preset GCC-arm64 -DNRV_DVS_BUILD_TESTS=OFF  (log: build/logs/app-configure.log)
+CMake Error: Could not read presets from /home/philip/DVS.JS.ORIN.01/app/dvs_streamer: Unrecognized "version" field

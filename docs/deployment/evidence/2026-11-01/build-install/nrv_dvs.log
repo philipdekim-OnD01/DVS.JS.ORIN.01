@@ -1,0 +1,17 @@
+make: Entering directory '/home/philip/DVS.JS.ORIN.01/drivers/dvs'
+make[1]: Entering directory '/usr/src/linux-headers-6.8.12-1021-tegra-ubuntu24.04_aarch64/3rdparty/canonical/linux-noble'
+warning: the compiler differs from the one used to build the kernel
+  The kernel was built by: gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+  You are using:           gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+  CC [M]  /home/philip/DVS.JS.ORIN.01/build/dvs/src/dvs/dvs.o
+  CC [M]  /home/philip/DVS.JS.ORIN.01/build/dvs/src/dvs/i2c.o
+  CC [M]  /home/philip/DVS.JS.ORIN.01/build/dvs/src/nrv_dvs.o
+  CC [M]  /home/philip/DVS.JS.ORIN.01/build/dvs/src/tegra-cam/camera_common_sensor_ops.o
+  CC [M]  /home/philip/DVS.JS.ORIN.01/build/dvs/src/tegra-cam/register_control.o
+  LD [M]  /home/philip/DVS.JS.ORIN.01/build/dvs/nrv_dvs.o
+  MODPOST /home/philip/DVS.JS.ORIN.01/build/dvs/Module.symvers
+  CC [M]  /home/philip/DVS.JS.ORIN.01/build/dvs/nrv_dvs.mod.o
+  LD [M]  /home/philip/DVS.JS.ORIN.01/build/dvs/nrv_dvs.ko
+make[1]: Leaving directory '/usr/src/linux-headers-6.8.12-1021-tegra-ubuntu24.04_aarch64/3rdparty/canonical/linux-noble'
+nrv_dvs: wrote /home/philip/DVS.JS.ORIN.01/drivers/dvs/build/compile_commands.json (6 entries)
+make: Leaving directory '/home/philip/DVS.JS.ORIN.01/drivers/dvs'

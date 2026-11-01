@@ -1,0 +1,38 @@
+[boot-setup] kernel 6.8.12-1021-tegra, build artifacts present, vermagic OK
+[boot-setup] base DTB: /boot/dtb/kernel_tegra234-p3768-0000+p3767-0005-nv-super.dtb
+[boot-setup] cam1.dtbo applies offline to base DTB; nrv_dvs@10 present
+[boot-setup] extlinux: primary entry found (APPEND will be copied); DEFAULT is 'primary'
+[boot-setup] check OK
+[boot-setup] modules -> /lib/modules/6.8.12-1021-tegra/updates/nrv
+[dry-run] install -d -m 755 /lib/modules/6.8.12-1021-tegra/updates/nrv
+[dry-run] install -m 644 /home/philip/DVS.JS.ORIN.01/build/nrv_dvs.ko /lib/modules/6.8.12-1021-tegra/updates/nrv/
+[dry-run] rm -f /lib/modules/6.8.12-1021-tegra/updates/nrv/tegra-camera.ko
+[boot-setup] depmod override -> /etc/depmod.d/nrv-dvs.conf
+[dry-run] write /etc/depmod.d/nrv-dvs.conf:
+  override nrv_dvs 6.8.12-1021-tegra updates/nrv
+[dry-run] depmod -a 6.8.12-1021-tegra
+[dry-run] install -d -m 755 /boot/nrv-dvs/backup
+[dry-run] cp -p /boot/extlinux/extlinux.conf /boot/nrv-dvs/backup/extlinux.conf.20261101-115327
+[dry-run] install -m 644 /home/philip/DVS.JS.ORIN.01/build/cam1.dtbo /boot/nrv-dvs/cam1.dtbo
+[boot-setup] extlinux.conf diff (not applied):
+--- /boot/extlinux/extlinux.conf	2025-07-02 23:22:26.516000000 +0900
++++ /tmp/tmp.jbOPSz6zik	2026-11-01 11:53:27.747466500 +0900
+@@ -1,5 +1,5 @@
+ TIMEOUT 30
+-DEFAULT primary
++DEFAULT nrv-dvs
+ 
+ MENU TITLE L4T boot options
+ 
+@@ -27,3 +27,11 @@
+ #    LINUX /boot/Image.backup
+ #    INITRD /boot/initrd
+ #    APPEND ${cbootargs}
++
++LABEL nrv-dvs
++      MENU LABEL NRV DVS camera (nrv-dvs-jetson)
++      LINUX /boot/Image
++      FDT /boot/dtb/kernel_tegra234-p3768-0000+p3767-0005-nv-super.dtb
++      INITRD /boot/initrd
++      OVERLAYS /boot/nrv-dvs/cam1.dtbo
++      APPEND ${cbootargs} root=PARTUUID=662b0496-d9eb-49be-8567-47d1b2e56e8c rw rootwait rootfstype=ext4 mminit_loglevel=4 console=ttyTCU0,115200 firmware_class.path=/etc/firmware fbcon=map:0 video=efifb:off efi_pstore.pstore_disable=1 pstore.backend=ramoops efi=runtime pci=pcie_bus_perf nvme.use_threaded_interrupts=1

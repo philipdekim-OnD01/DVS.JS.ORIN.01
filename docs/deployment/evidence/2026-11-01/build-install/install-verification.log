@@ -1,0 +1,27 @@
+/lib/modules/6.8.12-1021-tegra/updates/nrv/nrv_dvs.ko
+6.8.12-1021-tegra SMP preempt mod_unload modversions aarch64
+/lib/modules/6.8.12-1021-tegra/updates/drivers/media/platform/tegra/camera/tegra-camera.ko
+MODULE_COPY_MATCH
+OVERLAY_COPY_MATCH
+d2224c7d0089398d0fca75216e786a355bdc8ba2618e8cf331277f145a774198  build/nrv_dvs.ko
+d2224c7d0089398d0fca75216e786a355bdc8ba2618e8cf331277f145a774198  /lib/modules/6.8.12-1021-tegra/updates/nrv/nrv_dvs.ko
+6a7e74e0d524f3c06549615423f6b9c6be0458eef3291b44d16f39a8c9b0b15b  build/cam1.dtbo
+6a7e74e0d524f3c06549615423f6b9c6be0458eef3291b44d16f39a8c9b0b15b  /boot/nrv-dvs/cam1.dtbo
+installed_at=20261101-115409
+kernel=6.8.12-1021-tegra
+previous_default=primary
+base_dtb=/boot/dtb/kernel_tegra234-p3768-0000+p3767-0005-nv-super.dtb
+extlinux_backup=/boot/nrv-dvs/backup/extlinux.conf.20261101-115409
+ko_dvs_sha256=d2224c7d0089398d0fca75216e786a355bdc8ba2618e8cf331277f145a774198
+dtbo_sha256=6a7e74e0d524f3c06549615423f6b9c6be0458eef3291b44d16f39a8c9b0b15b
+git_commit=04908bb
+# installed by nrv-dvs-jetson scripts/boot-setup.sh
+override nrv_dvs 6.8.12-1021-tegra updates/nrv
+DEFAULT nrv-dvs
+LABEL primary
+LABEL nrv-dvs
+      FDT /boot/dtb/kernel_tegra234-p3768-0000+p3767-0005-nv-super.dtb
+      OVERLAYS /boot/nrv-dvs/cam1.dtbo
+total 4
+-rw-r--r-- 1 root root 1021 Jul  2  2025 extlinux.conf.20261101-115409
+## main...origin/main

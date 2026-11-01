@@ -1,0 +1,1 @@
+[build.sh] ERROR: running kernel 5.15.148-tegra != pinned 6.8.12-1021-tegra

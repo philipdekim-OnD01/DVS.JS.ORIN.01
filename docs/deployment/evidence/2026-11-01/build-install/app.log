@@ -1,0 +1,24 @@
+[0/2] Re-checking globbed directories...
+[1/23] cd /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/output/GCC-arm64 && /usr/bin/cmake -E copy_if_different /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/python/run.py /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/python/viewer.py /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/build/GCC-arm64/Release && /usr/bin/cmake -E copy_directory /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/web /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/build/GCC-arm64/Release/web && /usr/bin/cmake -E copy_directory /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/settings /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/build/GCC-arm64/Release/settings && /usr/bin/cmake -E copy_directory /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/bedside /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/build/GCC-arm64/Release/bedside
+[2/23] Building CXX object sdk/CMakeFiles/nrv_dvs_objects.dir/Release/cmake_pch.hxx.gch
+[3/23] Building CXX object sdk/CMakeFiles/nrv_dvs_objects.dir/Release/src/compressor.cpp.o
+[4/23] Building CXX object sdk/CMakeFiles/nrv_dvs_objects.dir/Release/src/decoder.cpp.o
+[5/23] Building CXX object CMakeFiles/dvs_streamer.dir/Release/src/main.cpp.o
+[6/23] Building CXX object sdk/CMakeFiles/nrv_dvs_objects.dir/Release/src/device.cpp.o
+[7/23] Building CXX object sdk/CMakeFiles/nrv_dvs_objects.dir/Release/src/group_aer_decoder.cpp.o
+[8/23] Building CXX object sdk/CMakeFiles/nrv_dvs_objects.dir/Release/src/nrv_dvs/compressor.cpp.o
+[9/23] Building CXX object sdk/CMakeFiles/nrv_dvs_objects.dir/Release/src/nrv_dvs/device.cpp.o
+[10/23] Building CXX object sdk/CMakeFiles/nrv_dvs_objects.dir/Release/src/nrv_dvs/decoder.cpp.o
+[11/23] Building CXX object sdk/CMakeFiles/nrv_dvs_objects.dir/Release/src/nrv_dvs/source.cpp.o
+[12/23] Building CXX object sdk/CMakeFiles/nrv_dvs_objects.dir/Release/src/nrv_dvs/std_source.cpp.o
+[13/23] Building CXX object sdk/CMakeFiles/nrv_dvs_objects.dir/Release/src/nrv_dvs/stream.cpp.o
+[14/23] Building CXX object sdk/CMakeFiles/nrv_dvs_objects.dir/Release/src/nrv_dvs/pipe.cpp.o
+[15/23] Building CXX object sdk/CMakeFiles/nrv_dvs_objects.dir/Release/src/pipe.cpp.o
+[16/23] Building CXX object sdk/CMakeFiles/nrv_dvs_objects.dir/Release/src/raw2_decoder.cpp.o
+[17/23] Building CXX object sdk/CMakeFiles/nrv_dvs_objects.dir/Release/src/source.cpp.o
+[18/23] Building CXX object sdk/CMakeFiles/nrv_dvs_objects.dir/Release/src/std_source.cpp.o
+[19/23] Building CXX object sdk/CMakeFiles/nrv_dvs_objects.dir/Release/src/stream.cpp.o
+[20/23] Linking CXX shared library Release/libnrv_dvs.so.0.1.0
+[21/23] Creating library symlink Release/libnrv_dvs.so.0 Release/libnrv_dvs.so
+[22/23] nrv_dvs: distribution layout (Release)
+[23/23] Linking CXX executable /home/philip/DVS.JS.ORIN.01/app/dvs_streamer/build/GCC-arm64/Release/dvs_streamer

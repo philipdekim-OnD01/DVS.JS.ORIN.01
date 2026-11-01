@@ -1,0 +1,80 @@
+=== ac3-modules
+FAIL ac3-modules (see build/tests/ac3-modules.log)
+    PASS control config: .type = V4L2_CTRL_TYPE_U32
+    PASS control config: .flags = V4L2_CTRL_FLAG_DYNAMIC_ARRAY | V4L2_CTRL_FLAG_EXECUTE_ON_WRITE
+    PASS control config: .def = DVS_REGISTER_WRITES_EMPTY
+    PASS control config: .dims = { DVS_MAX_REGISTER_WRITES }
+    PASS control config: .is_private = 0
+    PASS control config: .max = 0xffffffffULL
+    PASS exactly one v4l2_ctrl_new_custom() in the driver
+    PASS the control is created in the subdev .registered internal op on sd->ctrl_handler
+    PASS no data type control or reset data type readback (stock VI matches RAW8 0x2A)
+    PASS check_work: reset, connection readback, then ready
+    PASS CID not added to the tegracam control table
+    PASS probe: privdata, then v4l2sd_internal_ops, then tegracam_v4l2subdev_register()
+    PASS s_ctrl: -EBUSY while streaming
+    PASS s_ctrl: validates the whole new payload (new_elems) before storing
+    PASS try_ctrl validates the payload
+    PASS control callbacks only validate/store (no I2C, reset, sleep, locks)
+    PASS no new driver mutex in register_control.c
+    PASS dvs->lock taken only in dvs_i2c_send/recv/transfer
+    PASS set_mode: snapshot, -ENODATA if empty, reset, 0100=00, stored pairs, 2 ms
+    PASS set_mode: empty list -> -ENODATA (no stream without a stored list)
+    PASS set_mode: writes only 0100 and the stored list (no register literals)
+    PASS set_mode: no readback; driver reads no DT data type property
+    PASS set_mode: snapshot freed on every exit; failure path puts the sensor in standby
+    PASS start_streaming publishes streaming before the start write (EBUSY window)
+    PASS control rejects the stream on/off register 0x0100
+    PASS driver sources: no built-in setfile, preset or sensor/register names
+    PASS RSTN driven only in dvs_reset() (10 ms low, 100 ms after release)
+    PASS snapshot copied under the control handler lock (kmemdup, not on stack)
+    PASS remove clears register_ctrl before the handler is freed; helpers read it with READ_ONCE
+    PASS Delta_10_2000FPS.txt: 84 writes + final 0100=01
+    PASS Delta_10_2000FPS.txt: one 3901=2A write (RAW8)
+      default sequence: 85 accesses sha256=c148e6bee5b4bf0a7a7cdd19b0a8425da48f8f8238a722ba1601380e5901e426
+    PASS default setfile without 3901=2A: written sequence == the original driver at its validated defaults
+    PASS app/dvs_streamer/settings/Delta_01_1000FPS.txt: last 3901 write = 2A (RAW8)
+    PASS app/dvs_streamer/settings/Delta_10_2000FPS.txt: last 3901 write = 2A (RAW8)
+    PASS app/dvs_streamer/settings/Delta_10_2000FPS_RAW2.txt: last 3901 write = 2A (RAW8)
+    PASS app/dvs_streamer/settings/Delta_10_2000FPS_Stereo.txt: last 3901 write = 2A (RAW8)
+    PASS app/dvs_streamer/settings/Delta_10_2200FPS_RAW2.txt: last 3901 write = 2A (RAW8)
+    PASS config/Delta_10_2000FPS.txt: last 3901 write = 2A (RAW8)
+    PASS config/Delta_10_2000FPS_EvthMax.txt: last 3901 write = 2A (RAW8)
+    PASS sdk/settings/Delta_01_1000FPS.txt: last 3901 write = 2A (RAW8)
+    PASS sdk/settings/Delta_10_2000FPS.txt: last 3901 write = 2A (RAW8)
+    PASS sdk/settings/Delta_10_2000FPS_EvthMax.txt: last 3901 write = 2A (RAW8)
+    PASS sdk/settings/Delta_10_2000FPS_RAW2.txt: last 3901 write = 2A (RAW8)
+    PASS sdk/settings/Delta_10_2000FPS_Stereo.txt: last 3901 write = 2A (RAW8)
+    PASS PLL 30A5/6/7 = 00/8D/00 and 0x3915 = 0x24 unchanged
+    PASS cam1.dts mode0 num_lanes = "4"
+    PASS cam1.dts mode0 phy_mode = "DPHY"
+    PASS cam1.dts mode0 csi_pixel_bit_depth = "8"
+    PASS cam1.dts mode0 pix_clk_hz = "1250000000"
+    PASS cam1.dts mode0 cil_settletime = "0"
+    PASS cam1.dts mode0 lane_polarity = "0"
+    PASS cam1.dts mode0 has no serdes_pix_clk_hz
+    PASS driver formats[] match DT mode sizes: [('8192', '128', '0'), ('2880', '61', '1')]
+    PASS every DT mode has the mode0 receiver settings (only the VI buffer size differs)
+    PASS sensor_common.c: pixel_clock 1250000000 and DPHY mipi_clock 1250000000 == removed runtime override (NVCSI equal; VI bind-time rate differs, OPEN-ISSUES 3)
+    FAIL app/run.py: no sysfs parameter table; passes a setfile to dvs_live
+    PASS nrv_dvs.ko imports 9 symbols exported by tegra-camera.ko
+    PASS nrv_dvs.ko import CRCs == stock tegra-camera export CRCs (nvidia-public Module.symvers)
+    modules: FAILED 1
+=== ac4-overlay
+PASS ac4-overlay
+    merged nrv_dvs@10 compatible = nrv,fx20-sensor-board samsung,s5krc1s
+    sha256 base=58762f477f73e0fb5ad2dd3f1c123e834d6d39ad02f985fe469b8880604207cc dtbo=6a7e74e0d524f3c06549615423f6b9c6be0458eef3291b44d16f39a8c9b0b15b
+=== ac4-compare-dt
+PASS ac4-compare-dt
+    reference DTB /boot/dtb/nrv-power-h128-cam1-20261008.dtb not present
+=== ac5-app
+FAIL ac5-app (see build/tests/ac5-app.log)
+    /home/philip/DVS.JS.ORIN.01/build/dvs_live: cannot open `/home/philip/DVS.JS.ORIN.01/build/dvs_live' (No such file or directory)
+=== ac7-scan
+PASS ac7-scan
+    PASS no paths into the reference validation tree in build/runtime/test files: []
+    PASS build/test code invokes no module load/unload, initramfs, boot changes, package installs or protected-path writes: []
+    scan: all checks passed
+    tracked build products/NVIDIA files: none
+=== verification boundary: NOT loaded, NOT booted, NOT receive-tested.
+check-build: FAILED: ac3-modules ac5-app
