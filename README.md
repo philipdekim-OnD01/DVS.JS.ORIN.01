@@ -6,6 +6,7 @@
 - [DVS 드라이버·CAM1 overlay 설치](docs/guides/DRIVER-INSTALL.md)
 - [SDK·디코더·실시간 뷰어 설치 및 실행](docs/guides/DECODER-AND-VIEWER.md)
 - [디코더 설정창·레지스터 읽기](docs/guides/VIEWER-SETTINGS.md)
+- [현재 FPS 측정·속도 제한과 증속 검토](docs/deployment/FPS-2026-11-02.md)
 - [문제 해결·복구](docs/guides/TROUBLESHOOTING.md)
 
 # Jetson .121 설치·실시간 표시 기록 (2026-11-01)

@@ -1,0 +1,37 @@
+{
+  "provenance": "Values preserved from the actual SSH terminal measurement on 2026-11-02 Asia/Seoul; raw per-sample responses were not saved.",
+  "runtime_commit": "3ff3c41fb5cdf91450b4761095c66774acd990ff",
+  "measurement_method": "Five /stats.json samples approximately 1 second apart; counter deltas divided by host seconds delta",
+  "session_pid": 67942,
+  "state": "live",
+  "sample_seconds": 4.003000000000156,
+  "decoded_frames_per_s": 1597.801648763365,
+  "received_buffers_per_s": 1596.552585560767,
+  "received_MiB_per_s": 267.4888212502628,
+  "events_per_s": 652410.1923557078,
+  "preview_us": 16666,
+  "preview_frames_per_s": 58.70597052210613,
+  "sensor_candidate_periods_us": [624, 624, 624, 624, 624],
+  "stream": {
+    "buffers": 1917544,
+    "bytes": 336874129920,
+    "dropped": 0,
+    "starved": 0,
+    "starved_ms": 0.0,
+    "sequence": 1917544,
+    "buffer_bytes": 175680,
+    "error_buffers": 0
+  },
+  "raw2_timestamp_ambiguous": 199,
+  "raw2_timestamp_order_errors": 15,
+  "screen_pipe_dropped": 0,
+  "raw_pipe_dropped": 0,
+  "power_observation": {
+    "nvpmodel_name": "25W",
+    "nvpmodel_id": 1,
+    "cpu_frequency_MHz": 1344,
+    "cpu_temperature_C": [52.25, 52.593],
+    "note": "Separate short tegrastats observation; not a sustained-load or thermal-throttling test"
+  },
+  "configuration_changed": false
+}

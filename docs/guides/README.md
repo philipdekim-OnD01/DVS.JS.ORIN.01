@@ -3,6 +3,7 @@
 이 가이드는 2026-11-01에 Orin Nano Super에서 확인한 설치와 RAW2 수신 절차를 기준으로 한다.
 실제 작업 기록은 [배포 기록](../deployment/JETSON-2026-11-01.md), 당시 출력은
 [증거 로그](../deployment/evidence/)에서 볼 수 있다.
+현재 수신·표시 속도와 증속 검토는 [FPS 측정 기록](../deployment/FPS-2026-11-02.md)에 있다.
 
 ## 처음 설치하는 순서
 
