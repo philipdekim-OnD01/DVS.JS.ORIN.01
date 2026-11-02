@@ -1,0 +1,32 @@
+{
+  "source_git_head": "3ff3c41fb5cdf91450b4761095c66774acd990ff",
+  "git_status": "",
+  "protected_files_match_before": true,
+  "protected_file_sha256": {
+    "app/dvs_streamer/src/main.cpp": "84205e8168826b9c5be8886c8ced681b70b01d13b4b2423af653cceacda405be",
+    "app/dvs_streamer/python/viewer.py": "e7e024e004f11ce9b74257b98f8990a1c5e450dd5a5f811fe4df5fec95c79f42",
+    "sdk/include/nrv_dvs/decoder.h": "c418bcbfb86a6d02dfdb980e7cc9f3aa607ef506b6a9c58b717518d1ac2644f0",
+    "app/dvs_streamer/build/GCC-arm64/Release/dvs_streamer": "f136088b25231c07208e4f2ca379f016b45ba3f4f00d07e46a3f267e481f0c24",
+    "app/dvs_streamer/build/GCC-arm64/Release/settings/Delta_10_2000FPS_RAW2.txt": "883ad7f5ba7edcc614cc36950bd0eb81cc3f57316641b08bf1744880ca27fe2c"
+  },
+  "capture_pid_before": 67942,
+  "capture_pid_after": 67942,
+  "receiver_state": "live",
+  "has_frame": true,
+  "snapshot_id": 315214,
+  "validation_packages": {
+    "numpy": "1.26.4",
+    "pillow": "10.2.0",
+    "pytest": "7.4.4"
+  },
+  "raw2_inventory": {
+    "recordings": {
+      "exists": false,
+      "files": []
+    },
+    "app/dvs_streamer/build/GCC-arm64/Release/recordings": {
+      "exists": false,
+      "files": []
+    }
+  }
+}

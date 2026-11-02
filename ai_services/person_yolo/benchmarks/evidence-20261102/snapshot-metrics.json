@@ -1,0 +1,14 @@
+{
+  "exit_code": 0,
+  "wall_seconds": 2.349776400020346,
+  "process_cpu_seconds": 2.578125,
+  "process_cpu_percent_one_core": 109.71788634772554,
+  "peak_process_rss_bytes": 302059520,
+  "final_process_rss_bytes": 293281792,
+  "scope": "CLI including model load; excludes wrapper/import setup; peak RSS is process lifetime",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "machine": "AMD64",
+  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "logical_cpus": 16,
+  "python": "3.13.13"
+}

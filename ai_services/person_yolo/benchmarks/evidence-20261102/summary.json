@@ -1,0 +1,74 @@
+{
+  "snapshot": {
+    "frames_inferred": 5,
+    "person_detections": 0,
+    "processing_ms": [
+      155.1445999648422,
+      106.52170004323125,
+      94.550900044851,
+      94.9997000861913,
+      95.78269999474287
+    ],
+    "p50_processing_ms": 95.78269999474287,
+    "p95_processing_ms": 145.42001998052,
+    "inference_ms": [
+      148.28640001360327,
+      100.09590000845492,
+      88.26530002988875,
+      88.16240006126463,
+      89.71289999317378
+    ],
+    "p50_inference_ms": 89.71289999317378,
+    "p95_inference_ms": 138.6483000125736,
+    "quantile_method": "numpy percentile linear; includes cold first prediction; tiny sample NOT throughput benchmark",
+    "inference_torch_threads": 2,
+    "metrics": {
+      "exit_code": 0,
+      "wall_seconds": 2.349776400020346,
+      "process_cpu_seconds": 2.578125,
+      "process_cpu_percent_one_core": 109.71788634772554,
+      "peak_process_rss_bytes": 302059520,
+      "final_process_rss_bytes": 293281792,
+      "scope": "CLI including model load; excludes wrapper/import setup; peak RSS is process lifetime",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+      "logical_cpus": 16,
+      "python": "3.13.13"
+    }
+  },
+  "synthetic": {
+    "frames_inferred": 3,
+    "person_detections": 0,
+    "processing_ms": [
+      150.91109997592866,
+      89.99599993694574,
+      95.12569999787956
+    ],
+    "p50_processing_ms": 95.12569999787956,
+    "p95_processing_ms": 145.33255997812375,
+    "inference_ms": [
+      145.29390004463494,
+      84.15789995342493,
+      88.40869995765388
+    ],
+    "p50_inference_ms": 88.40869995765388,
+    "p95_inference_ms": 139.60538003593683,
+    "quantile_method": "numpy percentile linear; includes cold first prediction; tiny sample NOT throughput benchmark",
+    "inference_torch_threads": 2,
+    "metrics": {
+      "exit_code": 0,
+      "wall_seconds": 2.174653800087981,
+      "process_cpu_seconds": 2.28125,
+      "process_cpu_percent_one_core": 104.90175493256474,
+      "peak_process_rss_bytes": 301633536,
+      "final_process_rss_bytes": 291950592,
+      "scope": "CLI including model load; excludes wrapper/import setup; peak RSS is process lifetime",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+      "logical_cpus": 16,
+      "python": "3.13.13"
+    }
+  }
+}
