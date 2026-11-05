@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "state": "completed",
+  "source_kind": "snapshot_preview_sequence",
+  "raw2_direct": false,
+  "inference_mode": "yolo",
+  "config": {
+    "model_name": "yolo11n.pt",
+    "model_sha256": "0ebbc80d4a7680d14987a577cd21342b65ecfd94632bd9a8da63ae6417644ee1",
+    "ultralytics_version": "8.3.228",
+    "device": "cpu",
+    "imgsz": 640,
+    "confidence": 0.25,
+    "iou": 0.7,
+    "max_det": 100,
+    "threads": 2
+  },
+  "processed_frames": 5,
+  "inferred_frames": 5,
+  "skipped_frames": 0,
+  "detection_count": 0,
+  "frames_with_person": 0,
+  "unique_person_count": null,
+  "accuracy_validated": false,
+  "inputs": [
+    {
+      "name": "snapshot-00.bin",
+      "bytes": 173798,
+      "sha256": "3f57c7ce64ceeafe03a74872a377331bc0be68e901e04ade8578bdf101904fd8",
+      "mtime_ns": 1793567222971518800
+    },
+    {
+      "name": "snapshot-01.bin",
+      "bytes": 173798,
+      "sha256": "219cbc4204c1bd6198dcae9fb9a235aed4d4078aa97913853a1c994331a5056e",
+      "mtime_ns": 1793567223219525600
+    },
+    {
+      "name": "snapshot-02.bin",
+      "bytes": 173798,
+      "sha256": "303b20d32fbdd7396b343ad0ebff5b60554cf8ebb90208bc26b0771a6be656ae",
+      "mtime_ns": 1793567223471532600
+    },
+    {
+      "name": "snapshot-03.bin",
+      "bytes": 173798,
+      "sha256": "cb7494ff2ddd7d4f3a556cac1b895570764fbd22320cbb94f138c0d2b9a2a6cf",
+      "mtime_ns": 1793567223723539600
+    },
+    {
+      "name": "snapshot-04.bin",
+      "bytes": 173798,
+      "sha256": "59b085e95ab7d0a6fee7f37c3df6cfd61d2d015488a538205f66f78c105731c9",
+      "mtime_ns": 1793567223975546600
+    }
+  ],
+  "model": {
+    "model_name": "yolo11n.pt",
+    "model_file_sha256": "0ebbc80d4a7680d14987a577cd21342b65ecfd94632bd9a8da63ae6417644ee1",
+    "model_version": "ultralytics==8.3.228",
+    "torch_version": "2.9.0+cpu",
+    "device": "cpu",
+    "inference_torch_threads": 2,
+    "weights_license": "AGPL-3.0 / Ultralytics Enterprise option"
+  },
+  "execution": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.13",
+    "opencv": "5.0.0"
+  },
+  "audio_preserved": false,
+  "timing": "CFR playback; not sensor latency",
+  "width": 960,
+  "height": 720,
+  "output_fps": 4.0,
+  "encoder": "mp4v",
+  "outputs": {
+    "annotated.mp4": {
+      "sha256": "3b1181595d0523df6836ecca302c860cad38df775b79b8acfd1948fffdd97a1c",
+      "bytes": 427974
+    },
+    "detections.jsonl": {
+      "sha256": "83802de388afcbac5529921c70617f02e98150e646a59ed41f7f9dd9965a30de",
+      "bytes": 5712
+    }
+  },
+  "wall_seconds": 1.8180104999337345
+}

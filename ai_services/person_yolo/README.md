@@ -1,5 +1,9 @@
 # Person YOLO P0 — 읽기 전용 프리뷰 smoke test
 
+**저장 영상 후처리 앱:** MP4/AVI와 저장 snapshot을 불러오는 독립 데스크톱 앱 및
+결과 MP4/JSONL 저장은 [후처리 사용 가이드](POSTPROCESS_KO.md)를 참조한다.
+아래 내용은 기존 P0 입력 계약이다.
+
 [Issue #1](https://github.com/philipdekim-OnD01/DVS.JS.ORIN.01/issues/1)의
 [공식 계획서](../../docs/ai-services/YOLO_RAW2_MODULAR_PLAN_2026-11-02_KO.md)를 구현하는 독립 Python 패키지다.
 **P0는 snapshot 프리뷰 입력이며 RAW2 원본 직접 처리가 아니다.**
