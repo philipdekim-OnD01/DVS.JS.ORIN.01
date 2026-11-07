@@ -1,0 +1,46 @@
+{
+  "source_repository": "philipdekim-OnD01/DVS.Decoder.RP5.01",
+  "source_commit": "01e1345db029a633cd97108db82c3629b0b36491",
+  "video_path": "dvs-20261013-10s.mp4",
+  "video_url": "https://github.com/philipdekim-OnD01/DVS.Decoder.RP5.01/blob/01e1345db029a633cd97108db82c3629b0b36491/dvs-20261013-10s.mp4",
+  "video_bytes": 46218593,
+  "video_sha256": "dec2c652fee284641f8124c2cc687934ff1ff079fb6a9e3317b0c37fce37aee6",
+  "video_git_blob_sha1_calculated": "158cd33605af626c3e904e6c8b07139a57a253c1",
+  "release_tag": "capture-2026-10-13-raw10s",
+  "release_id": 410994848,
+  "verified_release_metadata_assets": [
+    {
+      "name": "FORMAT.md",
+      "bytes": 2699,
+      "expected_release_sha256": "ea22aa82c2fe6621018d929f868509fbefbf3160111aac917a3483d620bc8114",
+      "actual_sha256": "ea22aa82c2fe6621018d929f868509fbefbf3160111aac917a3483d620bc8114",
+      "verified": true
+    },
+    {
+      "name": "mipi-raw2-10s.json",
+      "bytes": 1079,
+      "expected_release_sha256": "5d31595498496ba853409a1632621e88e7a564c9000cf1eda94e9ccec29a4022",
+      "actual_sha256": "5d31595498496ba853409a1632621e88e7a564c9000cf1eda94e9ccec29a4022",
+      "verified": true
+    },
+    {
+      "name": "RAW-SHA256SUMS",
+      "bytes": 265,
+      "expected_release_sha256": "6aa085e470c0ed31928166bedfd385db72e3949c62659880433f747afccbab5a",
+      "actual_sha256": "6aa085e470c0ed31928166bedfd385db72e3949c62659880433f747afccbab5a",
+      "verified": true
+    },
+    {
+      "name": "read_raw.py",
+      "bytes": 649,
+      "expected_release_sha256": "01db277469a638ea5104abecdaf404b77afc5823057ad11f44480d1a53b4fd69",
+      "actual_sha256": "01db277469a638ea5104abecdaf404b77afc5823057ad11f44480d1a53b4fd69",
+      "verified": true
+    }
+  ],
+  "raw_payload_downloaded": false,
+  "raw_payload_hash_verified": false,
+  "raw2_decoded": false,
+  "video_to_raw_capture_frame_correspondence_verified": false,
+  "notes": "Video is a decoded visualization. RAW2 metadata was inspected separately. No same-session/frame correspondence is asserted. Reader script was downloaded and hashed, not executed."
+}

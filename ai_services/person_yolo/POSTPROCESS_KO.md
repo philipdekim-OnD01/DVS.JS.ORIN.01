@@ -91,4 +91,9 @@ python -m person_yolo.postprocess --input /data/dvs-video.avi --dry-run --output
 - 프리뷰의 오래된 정상 프레임 상태/중복은 skip으로 남기고 배경 화면을 출력한다.
   영상 파일에서는 이런 센서 상태를 복원할 수 없으므로 해당 품질 정보는 미확인이다.
 
-검증 기록: [2026-11-06 후처리 결과](benchmarks/POSTPROCESS_2026-11-06_KO.md).
+검증 기록: [2026-11-06 후처리 결과](benchmarks/POSTPROCESS_2026-11-06_KO.md),
+[2026-11-07 실제 RP5 10초 영상](benchmarks/RP5_VIDEO_2026-11-07_KO.md).
+공유 MP4는 GitHub에서 로컬로 다운로드한 뒤 **영상 파일 선택**으로 연다.
+RAW2 Release의 `.dvsraw.gz`는 이 MP4 입력과 다른 형식이며 이 앱에서 직접 처리하지 않는다.
+실제 RP5 영상 600프레임은 기본 설정으로 처리 완료했지만 person 검출은 0건이었다.
+앱 실행 성공과 사람 검출 성능 검증을 구분해야 한다.

@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-07",
+  "rows": 600,
+  "inferred_rows": 600,
+  "frames_with_person": 0,
+  "person_boxes": 0,
+  "wall_seconds": 39.06943750008941,
+  "offline_frames_per_wall_second": 15.35727254836026,
+  "predict_ms_p50": 52.05450009088963,
+  "predict_ms_p95": 60.00378495082259,
+  "predict_ms_max": 104.63710012845695,
+  "predict_ms_first_frame": 104.63710012845695,
+  "nominal_input_fps": 60,
+  "input_duration_seconds": 10,
+  "raw2_direct": false,
+  "accuracy_validated": false
+}

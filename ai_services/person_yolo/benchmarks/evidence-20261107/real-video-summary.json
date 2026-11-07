@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "state": "completed",
+  "source_kind": "decoded_video",
+  "raw2_direct": false,
+  "inference_mode": "yolo",
+  "config": {
+    "model_name": "yolo11n.pt",
+    "model_sha256": "0ebbc80d4a7680d14987a577cd21342b65ecfd94632bd9a8da63ae6417644ee1",
+    "ultralytics_version": "8.3.228",
+    "device": "cpu",
+    "imgsz": 640,
+    "confidence": 0.25,
+    "iou": 0.7,
+    "max_det": 100,
+    "threads": 2
+  },
+  "processed_frames": 600,
+  "inferred_frames": 600,
+  "skipped_frames": 0,
+  "detection_count": 0,
+  "frames_with_person": 0,
+  "unique_person_count": null,
+  "accuracy_validated": false,
+  "inputs": [
+    {
+      "name": "dvs-20261013-10s.mp4",
+      "bytes": 46218593,
+      "sha256": "dec2c652fee284641f8124c2cc687934ff1ff079fb6a9e3317b0c37fce37aee6",
+      "mtime_ns": 1793928221014724500,
+      "reported_frames": 600,
+      "nominal_fps": 60.0,
+      "decode_backend": "FFMPEG"
+    }
+  ],
+  "model": {
+    "model_name": "yolo11n.pt",
+    "model_file_sha256": "0ebbc80d4a7680d14987a577cd21342b65ecfd94632bd9a8da63ae6417644ee1",
+    "model_version": "ultralytics==8.3.228",
+    "torch_version": "2.9.0+cpu",
+    "device": "cpu",
+    "inference_torch_threads": 2,
+    "weights_license": "AGPL-3.0 / Ultralytics Enterprise option"
+  },
+  "execution": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.13",
+    "opencv": "5.0.0"
+  },
+  "audio_preserved": false,
+  "timing": "CFR playback; not sensor latency",
+  "width": 960,
+  "height": 720,
+  "output_fps": 60.0,
+  "encoder": "mp4v",
+  "outputs": {
+    "annotated.mp4": {
+      "sha256": "b96beaed8d73aaf18409c656a73785cafa33da707cd2204df3a2324913284e4b",
+      "bytes": 106146048
+    },
+    "detections.jsonl": {
+      "sha256": "7d898f6d8dfeedbc43e181b17bf46b60b4a99174dc8ab5735e6be3b6a613d15a",
+      "bytes": 635752
+    }
+  },
+  "wall_seconds": 39.06943750008941
+}
