@@ -1,0 +1,19 @@
+{
+  "preview-derived.mp4": {
+    "sha256": "ddaf3aaa05a9d210295e814e4648bc7d6e4faa547c5a4743e27fd7b8f7bcbbe6",
+    "kind": "video re-encoded from five saved real DVS previews; not original continuous recording",
+    "playback_fps": 4,
+    "original_snapshot_sha256": [
+      "3f57c7ce64ceeafe03a74872a377331bc0be68e901e04ade8578bdf101904fd8",
+      "219cbc4204c1bd6198dcae9fb9a235aed4d4078aa97913853a1c994331a5056e",
+      "303b20d32fbdd7396b343ad0ebff5b60554cf8ebb90208bc26b0771a6be656ae",
+      "cb7494ff2ddd7d4f3a556cac1b895570764fbd22320cbb94f138c0d2b9a2a6cf",
+      "59b085e95ab7d0a6fee7f37c3df6cfd61d2d015488a538205f66f78c105731c9"
+    ]
+  },
+  "synthetic-moving.mp4": {
+    "sha256": "1b84428afe6d1c59d637d2bfca310da9cb1ef39fc49d1dfe635d88a9a98b608e",
+    "kind": "synthetic moving ON/OFF rectangle; no person labels",
+    "playback_fps": 12
+  }
+}

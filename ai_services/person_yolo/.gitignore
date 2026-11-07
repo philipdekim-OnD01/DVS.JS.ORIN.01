@@ -15,3 +15,8 @@ dist/
 outputs_local/
 data/
 models/
+*.mp4
+*.avi
+*.mkv
+*.mov
+*.webm

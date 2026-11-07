@@ -12,9 +12,12 @@ dependencies = ["numpy==2.2.6", "Pillow==11.3.0"]
 [project.optional-dependencies]
 test = ["pytest==8.4.2"]
 yolo = ["ultralytics==8.3.228", "torch==2.9.0", "torchvision==0.24.0"]
+video = ["opencv-python==5.0.0.93"]
 
 [project.scripts]
 person-yolo = "person_yolo.cli:main"
+dvs-yolo-process = "person_yolo.postprocess:main"
+dvs-yolo-desktop = "person_yolo.desktop:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
