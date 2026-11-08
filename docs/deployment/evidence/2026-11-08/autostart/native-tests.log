@@ -1,0 +1,9 @@
+test_colors_roi_invalid_and_flip (test_native_decoder.NativeTests.test_colors_roi_invalid_and_flip) ... ok
+test_heartbeat_does_not_imply_mipi_data (test_native_decoder.NativeTests.test_heartbeat_does_not_imply_mipi_data) ... ok
+test_noise_and_roi_validation (test_native_decoder.NativeTests.test_noise_and_roi_validation) ... ok
+test_stale_live_label_is_not_receiving (test_native_decoder.NativeTests.test_stale_live_label_is_not_receiving) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.136s
+
+OK

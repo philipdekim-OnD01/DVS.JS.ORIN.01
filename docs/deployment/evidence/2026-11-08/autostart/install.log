@@ -1,0 +1,11 @@
+/etc/systemd/system/nvcpupowerfix.service:37: Standard output type syslog is obsolete, automatically updating to journal. Please update your unit file, and consider removing the setting altogether.
+/etc/systemd/system/nvargus-daemon.service:42: Standard output type syslog is obsolete, automatically updating to journal. Please update your unit file, and consider removing the setting altogether.
+Created symlink /etc/systemd/system/multi-user.target.wants/nrv-dvs-streamer.service → /etc/systemd/system/nrv-dvs-streamer.service.
+INSTALLED /etc/systemd/system/nrv-dvs-streamer.service
+INSTALLED /home/philip/.config/systemd/user/nrv-dvs-native.service
+INSTALLED /home/philip/.local/share/applications/nrv-dvs-native.desktop
+INSTALLED /home/philip/.config/autostart/nrv-dvs-native.desktop
+INSTALLED /home/philip/Desktop/DVS-Decoder.desktop
+BACKUP /home/philip/.local/state/nrv-dvs/autostart-backup-20261108T205033
+Receiver enabled for boot. Existing capture was not stopped or restarted.
+GUI starts at graphical login. Reboot was not performed.
