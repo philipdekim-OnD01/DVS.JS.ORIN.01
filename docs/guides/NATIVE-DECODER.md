@@ -28,6 +28,55 @@ Tk/Pillow/NumPy 기반의 독립 창이며 브라우저, WebView, HTTP 서버/�
 센서 프레임 시각의 ambiguity/order-error는 수신 상태 JSON에서 별도로 확인한다.
 앱 종료는 센서·녹화를 정지하지 않는다.
 
+## 부팅 자동 시작과 바탕화면 버튼
+
+네이티브 앱과 수신기 실행본이 준비된 Jetson에서 다음을 실행한다.
+
+```sh
+python3 scripts/install-native-autostart.py --user philip --repo /home/philip/DVS.JS.ORIN.01 --dry-run
+sudo python3 scripts/install-native-autostart.py --user philip --repo /home/philip/DVS.JS.ORIN.01
+```
+
+설치기는 기존 파일을 `~/.local/state/nrv-dvs/autostart-backup-날짜시각/`에 백업하고
+아래 항목을 등록한다. 수신기 실행 파일, 센서 setfile, 커널·DT 오버레이·부트로더 설정은 수정하지 않는다.
+계정과 저장소 경로는 위 옵션으로 지정한다. 현재 설치기는 공백 없는 ASCII 경로를 요구한다.
+
+- 시스템 서비스 `nrv-dvs-streamer.service`: 부팅 시 사용자 계정으로 수신 시작.
+  기존 `run.py start --no-web`을 호출하며, 시작 실패/비정상 종료 시 10초 후 재시도한다.
+- 사용자 서비스 `nrv-dvs-native.service`: 독립 창 한 개를 관리한다.
+- `~/.config/autostart/nrv-dvs-native.desktop`: 그래픽 로그인 후 디코더 창을 연다.
+  전원을 켰을 때 창까지 나오려면 해당 계정의 **자동 로그인**이 설정돼 있어야 한다.
+- 바탕화면 `DVS-Decoder.desktop` 및 앱 목록의 **DVS 디코더**:
+  창이 닫혀 있으면 다시 열고, 실행 중이면 같은 창을 앞으로 가져온다.
+
+설치만으로 현재 수신을 중단하거나 재부팅하지 않는다. 기존 수동 수신을 서비스로
+전환할 때에는 녹화가 꺼져 있는지 확인하고 다음을 한 번 실행한다.
+
+```sh
+./dvs stop
+sudo systemctl start nrv-dvs-streamer.service
+```
+
+이후 수신기 시작/정지는 `sudo systemctl start|stop nrv-dvs-streamer.service`로 관리한다.
+서비스가 수신 중일 때 `./dvs start`를 중복 실행하지 않는다.
+상태는 `systemctl status nrv-dvs-streamer.service`와 앱의 수신 카운터를 함께 확인한다.
+GUI 상태/로그는 `systemctl --user status nrv-dvs-native.service`,
+`journalctl --user -u nrv-dvs-native.service`에서 확인한다.
+
+프로그램 자동 실행은 정상 영상 수신을 보장하지 않는다. 케이블/센서 전원 문제나
+프로세스가 살아 있는 상태의 수신 정지는 `Restart=on-failure`의 재시작 대상이 아니다.
+녹화는 자동으로 시작하지 않는다. 창을 닫아도 수신기는 계속 실행된다.
+
+자동 실행 해제:
+
+```sh
+sudo systemctl disable nrv-dvs-streamer.service
+mv ~/.config/autostart/nrv-dvs-native.desktop ~/.config/autostart/nrv-dvs-native.desktop.disabled
+```
+
+이는 다음 부팅/로그인 자동 실행만 해제한다. 현재 수신을 종료하려면 별도로 서비스를 정지한다.
+이번 설치기는 자동 로그인이나 디스플레이 전원 설정을 바꾸지 않는다.
+
 ## 2026-11-03 현장 검증
 
 - Jetson의 실제 X11 데스크톱에 독립 앱 실행, PID 231367, 실행 로그 오류 없음.

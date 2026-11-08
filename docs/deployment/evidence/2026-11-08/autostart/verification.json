@@ -1,0 +1,19 @@
+{
+  "receiver_pid": 875062,
+  "gui_before": 875099,
+  "gui_after_reopen": 875176,
+  "duplicate_launch_same_pid": true,
+  "receiver_unchanged_during_gui_reopen": true,
+  "receiver_enabled": "enabled",
+  "receiver_state": "active",
+  "gui_state": "active",
+  "observed_seconds": 30.00915499997791,
+  "buffers_added": 47900,
+  "buffers_per_second": 1596.179565870324,
+  "dropped_delta": 0,
+  "starved_delta": 0,
+  "error_buffers_delta": 0,
+  "fresh_all": true,
+  "recording_state": "idle",
+  "cold_boot_tested": false
+}
